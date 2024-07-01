@@ -1,0 +1,85 @@
+public class Pokemon {
+    private int pokemon_id;
+    private String name;
+    private String type;
+    private int current_hp;
+    private int attack;
+    private int defense;
+    private int current_defence;
+    private int max_speed;
+    private int current_speed;
+    private int hp_max;
+    private String status_effect;
+
+    public Pokemon(int pokemon_id, String name, String type, int attack, int defense, int max_speed, int hp_max, String status_effect) {
+        this.pokemon_id = pokemon_id;
+        this.name = name;
+        this.type = type;
+        this.current_hp = hp_max;
+        this.attack = attack;
+        this.defense = defense;
+        this.current_defence = defense;
+        this.max_speed = max_speed;
+        this.current_speed = max_speed;
+        this.hp_max = hp_max;
+        this.status_effect = status_effect;
+
+    }
+
+    public int getPokemon_id() {
+        return pokemon_id;
+    }
+    public String getName() {
+        return name;
+    }
+    public String getType() {
+        return type;
+    }
+    public int getCurrent_hp() {
+        return current_hp;
+    }
+    public int getAttack() {
+        return attack;
+    }
+    public int getDefense() {
+        return defense;
+    }
+    public int getCurrent_defence() {
+        return current_defence;
+    }
+    public int getMax_speed() {
+        return max_speed;
+    }
+    public int getCurrent_speed() {
+        return current_speed;
+    }
+    public int getHp_max() {
+        return hp_max;
+    }
+    public String getStatus_effect() {
+        return status_effect;
+    }
+
+
+    public void setType(String type) {
+        this.type = type;
+    }
+    public void setCurrent_hp(int current_hp) {
+        this.current_hp = current_hp;
+    }
+
+
+    public void setCurrent_defence(int current_defence) {
+        this.current_defence = current_defence;
+    }
+
+    public void setCurrent_speed(int current_speed) {
+        this.current_speed = current_speed;
+    }
+
+    public void setStatus_effect(String status_effect) {
+        this.status_effect = status_effect;
+    }
+
+
+}
