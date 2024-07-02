@@ -5,7 +5,7 @@ public class Pokemon {
     private int current_hp;
     private int attack;
     private int defense;
-    private int current_defence;
+    private int current_defense;
     private int max_speed;
     private int current_speed;
     private int hp_max;
@@ -18,7 +18,7 @@ public class Pokemon {
         this.current_hp = hp_max;
         this.attack = attack;
         this.defense = defense;
-        this.current_defence = defense;
+        this.current_defense = defense;
         this.max_speed = max_speed;
         this.current_speed = max_speed;
         this.hp_max = hp_max;
@@ -44,8 +44,8 @@ public class Pokemon {
     public int getDefense() {
         return defense;
     }
-    public int getCurrent_defence() {
-        return current_defence;
+    public int getCurrent_defense() {
+        return current_defense;
     }
     public int getMax_speed() {
         return max_speed;
@@ -69,8 +69,8 @@ public class Pokemon {
     }
 
 
-    public void setCurrent_defence(int current_defence) {
-        this.current_defence = current_defence;
+    public void setCurrent_defense(int current_defense) {
+        this.current_defense = current_defense;
     }
 
     public void setCurrent_speed(int current_speed) {
