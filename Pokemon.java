@@ -1,7 +1,7 @@
 public class Pokemon {
     private int pokemon_id;
     private String name;
-    private String type;
+    private String[] type;
     private int current_hp;
     private int attack;
     private int defense;
@@ -11,7 +11,7 @@ public class Pokemon {
     private int hp_max;
     private String status_effect;
 
-    public Pokemon(int pokemon_id, String name, String type, int attack, int defense, int max_speed, int hp_max, String status_effect) {
+    public Pokemon(int pokemon_id, String name, String[] type, int attack, int defense, int max_speed, int hp_max, String status_effect) {
         this.pokemon_id = pokemon_id;
         this.name = name;
         this.type = type;
@@ -32,7 +32,7 @@ public class Pokemon {
     public String getName() {
         return name;
     }
-    public String getType() {
+    public String[] getType() {
         return type;
     }
     public int getCurrent_hp() {
@@ -61,7 +61,7 @@ public class Pokemon {
     }
 
 
-    public void setType(String type) {
+    public void setType(String[] type) {
         this.type = type;
     }
     public void setCurrent_hp(int current_hp) {
