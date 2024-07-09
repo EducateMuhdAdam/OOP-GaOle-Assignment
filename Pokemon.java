@@ -1,85 +1,54 @@
+import java.util.ArrayList;
+
 public class Pokemon {
-    private int pokemon_id;
-    private String name;
-    private String[] type;
-    private int current_hp;
-    private int attack;
-    private int defense;
-    private int current_defense;
-    private int max_speed;
-    private int current_speed;
-    private int hp_max;
-    private String status_effect;
+	private int hp, atk, spd, def, user_ID;
+	public ArrayList<String> status = new ArrayList<String>();
+	Moves move1;
+	
+	public Pokemon(int move_ID) {
+		hp = 100;
+		atk = 49;
+		spd = 49;
+		def = 49;
+		user_ID = 1;
+		move1 = new Moves(this, move_ID);
+	}
+	
+	public void Attack1(Pokemon enemy) {
+		move1.useOn(enemy);
+	}
+	
+	
+	
+	public int getAtk() {
+		return atk;
+	}
 
-    public Pokemon(int pokemon_id, String name, String[] type, int attack, int defense, int max_speed, int hp_max, String status_effect) {
-        this.pokemon_id = pokemon_id;
-        this.name = name;
-        this.type = type;
-        this.current_hp = hp_max;
-        this.attack = attack;
-        this.defense = defense;
-        this.current_defense = defense;
-        this.max_speed = max_speed;
-        this.current_speed = max_speed;
-        this.hp_max = hp_max;
-        this.status_effect = status_effect;
+	public int getDef() {
+		return def;
+	}
 
-    }
-
-    public int getPokemon_id() {
-        return pokemon_id;
-    }
-    public String getName() {
-        return name;
-    }
-    public String[] getType() {
-        return type;
-    }
-    public int getCurrent_hp() {
-        return current_hp;
-    }
-    public int getAttack() {
-        return attack;
-    }
-    public int getDefense() {
-        return defense;
-    }
-    public int getCurrent_defense() {
-        return current_defense;
-    }
-    public int getMax_speed() {
-        return max_speed;
-    }
-    public int getCurrent_speed() {
-        return current_speed;
-    }
-    public int getHp_max() {
-        return hp_max;
-    }
-    public String getStatus_effect() {
-        return status_effect;
-    }
-
-
-    public void setType(String[] type) {
-        this.type = type;
-    }
-    public void setCurrent_hp(int current_hp) {
-        this.current_hp = current_hp;
-    }
-
-
-    public void setCurrent_defense(int current_defense) {
-        this.current_defense = current_defense;
-    }
-
-    public void setCurrent_speed(int current_speed) {
-        this.current_speed = current_speed;
-    }
-
-    public void setStatus_effect(String status_effect) {
-        this.status_effect = status_effect;
-    }
-
-
+	public void decreaseSpeed(int spd) {
+		this.spd -= spd;
+	}
+	
+	public void increaseSpeed(int spd) {
+		this.spd += spd;
+	}
+	
+	public void decreaseAttack(int atk) {
+		this.atk -= atk;
+	}
+	
+	public void takeDamage(int dmg) {
+		hp -= dmg;
+	}
+	
+	public void addStatus(String status) {
+		this.status.add(status);
+	}
+	
+	public String toString() {
+		return String.format("HP: %d Status:%s atk:%d", hp, status.toString(), atk);
+	}
 }
