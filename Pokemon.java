@@ -62,6 +62,9 @@ public class Pokemon {
     public String getStatus_effect() {
         return status_effect;
     }
+    public Moves getMoves() {
+        return this.move1.getMoves(moveID);
+    }
 
 
     public void setType(String[] type) {
