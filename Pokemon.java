@@ -12,7 +12,7 @@ public class Pokemon {
     private int hp_max;
     private String status_effect;
 
-    public Pokemon(int pokemon_id, String name, String[] type, int attack, int defense, int max_speed, int hp_max, String status_effect, int moveID) {
+    public Pokemon(int pokemon_id, String name, String[] type, int attack, int defense, int max_speed, int hp_max, String status_effect, int moveID1, int moveID2) {
         this.pokemon_id = pokemon_id;
         this.name = name;
         this.type = type;
@@ -24,7 +24,8 @@ public class Pokemon {
         this.current_speed = max_speed;
         this.hp_max = hp_max;
         this.status_effect = status_effect;
-        Moves move1 = new Moves(this, moveID);
+        Moves move1 = new Moves(this, moveID1);
+        Moves move2 = new Moves(this, moveID2);
 
     }
 
