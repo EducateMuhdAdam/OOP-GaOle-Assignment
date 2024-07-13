@@ -34,10 +34,10 @@ PS2,Poison Fang,50,100,dmg,0
 GD1,Earthquake,100,100,dmg,0
 GD2,Mud Shot,55,95,dmg,0
 GD3,Mud-Slap,20,100,dmg,0
-FY1,Tailwind,0,0,stat,0
-FY2,Fly,90,95,dmg,0
-FY3,Wing Attack,60,100,dmg,0
-FY4,Aerial Ace,60,999,dmg,0
+FL1,Tailwind,0,0,stat,0
+FL2,Fly,90,95,dmg,0
+FL3,Wing Attack,60,100,dmg,0
+FL4,Aerial Ace,60,999,dmg,0
 PC1,Psybeam,65,100,dmg,0
 PC2,Rest,0,0,stat,0
 PC3,Hypnosis,0,60,stat,0
@@ -47,8 +47,8 @@ BG2,Signal Beam,75,100,dmg,0
 BG3,Twineedle,25,100,dmg,0
 RC1,Rock Slide,75,90,dmg,0
 RC2,Diamond Storm,100,95,dmg,0
-GH1,Shadow Bone,85,100,dmg,0
-GH2,Nightmare,0,100,stat,0
+GH1,hadow Bone,85,100,dmg,0
+GH2,ightmare,0,100,stat,0
 DG1,Dragon Dance,0,0,tat,0
 DG2,Dragon Pulse,85,100,dmg,0
 DR1,Bite,60,100,dmg,0
