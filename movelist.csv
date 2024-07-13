@@ -47,8 +47,8 @@ BG2,Signal Beam,75,100,dmg,0
 BG3,Twineedle,25,100,dmg,0
 RC1,Rock Slide,75,90,dmg,0
 RC2,Diamond Storm,100,95,dmg,0
-GS1,Shadow Bone,85,100,dmg,0
-GS2,Nightmare,0,100,stat,0
+GH1,Shadow Bone,85,100,dmg,0
+GH2,Nightmare,0,100,stat,0
 DG1,Dragon Dance,0,0,tat,0
 DG2,Dragon Pulse,85,100,dmg,0
 DR1,Bite,60,100,dmg,0
