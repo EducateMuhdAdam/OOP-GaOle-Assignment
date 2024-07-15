@@ -1,31 +1,35 @@
-import Moves;
 public class Pokemon {
     private int pokemon_id;
     private String name;
     private String[] type;
-    private int current_hp;
+    private int hp_max;
     private int attack;
     private int defense;
+    private int current_hp;
+    
+    private int current_attack;
     private int current_defense;
     private int max_speed;
     private int current_speed;
-    private int hp_max;
     private String status_effect;
+    private Moves move1;
+    private Moves move2;
 
-    public Pokemon(int pokemon_id, String name, String[] type, int attack, int defense, int max_speed, int hp_max, String status_effect, int moveID1, int moveID2) {
+    public Pokemon(int pokemon_id, String name, String[] type, int attack, int current_attack, int defense, int max_speed, int hp_max, String status_effect, String moveID1, String moveID2) {
         this.pokemon_id = pokemon_id;
         this.name = name;
         this.type = type;
         this.current_hp = hp_max;
         this.attack = attack;
+        this.current_attack = current_attack;
         this.defense = defense;
         this.current_defense = defense;
         this.max_speed = max_speed;
         this.current_speed = max_speed;
         this.hp_max = hp_max;
         this.status_effect = status_effect;
-        Moves move1 = new Moves(this, moveID1);
-        Moves move2 = new Moves(this, moveID2);
+        move1 = new Moves(this, moveID1);
+        move2 = new Moves(this, moveID2);
 
     }
 
@@ -40,6 +44,9 @@ public class Pokemon {
     }
     public int getCurrent_hp() {
         return this.current_hp;
+    }
+    public int getCurrent_attack() {
+    	return this.current_attack;
     }
     public int getAttack() {
         return this.attack;
@@ -62,8 +69,11 @@ public class Pokemon {
     public String getStatus_effect() {
         return this.status_effect;
     }
-    public Moves getMoves() {
-        return this.move1.getMoves(moveID);
+    public Moves getMove1() {
+        return move1;
+    }
+    public Moves getMove2() {
+        return move2;
     }
 
 
