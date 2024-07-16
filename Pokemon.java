@@ -12,8 +12,8 @@ public class Pokemon {
     private int max_speed;
     private int current_speed;
     private String status_effect;
-    private Moves move1;
-    private Moves move2;
+    public Moves move1;
+    public Moves move2;
 
     public Pokemon(int pokemon_id, String name, String[] type, int attack, int current_attack, int defense, int max_speed, int hp_max, String status_effect, String moveID1, String moveID2) {
         this.pokemon_id = pokemon_id;
@@ -28,10 +28,25 @@ public class Pokemon {
         this.current_speed = max_speed;
         this.hp_max = hp_max;
         this.status_effect = status_effect;
-        move1 = new Moves(this, moveID1);
-        move2 = new Moves(this, moveID2);
+        Moves move1;
+        Moves move2;
 
     }
+    
+    public Pokemon(int pokemon_id, String moveID) {
+    	this.pokemon_id = pokemon_id;
+    	this.name = "Dummy Pokemon";
+    	this.current_hp = 100;
+        this.attack = 50;
+        this.current_attack = 50;
+        this.defense = 50;
+        this.current_defense = 50;
+        this.max_speed = 50;
+        this.current_speed = 50;
+        this.hp_max = 100;
+        move1 = new Moves(this, moveID);
+    }
+    
 
     public int getPokemon_id() {
         return this.pokemon_id;
@@ -96,6 +111,24 @@ public class Pokemon {
     public void setStatus_effect(String status_effect) {
         this.status_effect = status_effect;
     }
+    
+    
+    public void changeSpeed(int speed) {
+    	current_speed += speed;
+    }
+    
+    public void takeDamage(int damage) {
+    	System.out.printf("I TOOK %d DAMAGE!\n", damage); // temporary
+    	current_hp -= damage;
+    }
 
+	@Override
+	public String toString() {
+		return "Pokemon [pokemon_id=" + pokemon_id + ", name=" + name + ", hp_max=" + hp_max + ", attack=" + attack
+				+ ", defense=" + defense + ", current_hp=" + current_hp + ", current_attack=" + current_attack
+				+ ", current_defense=" + current_defense + ", max_speed=" + max_speed + ", current_speed="
+				+ current_speed + "]";
+	}
+    
 
 }
