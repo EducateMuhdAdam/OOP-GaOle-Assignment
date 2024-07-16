@@ -1,3 +1,5 @@
+//add make csv file to list owned pokemon
+
 import java.util.ArrayList;
 
 public class Player {
