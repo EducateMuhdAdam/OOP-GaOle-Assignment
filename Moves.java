@@ -7,13 +7,12 @@ public class Moves{
 	Pokemon user;
 	private int power, accuracy, priority;
 	private String  move_ID, type, move_name, move_action;
-	private Consumer<Pokemon> instruction = t -> {}; //dummy instruction, waiting assignment
+	private Instruction instruction = new Instruction();
 	
 	
 	public Moves(Pokemon user, String move_ID){
 		this.move_ID = move_ID;
 		this.user = user;
-		instruction = getInstruction();		
 		ArrayList<String[]> move_data = new ArrayList<String[]>();
 		
 		try {
@@ -27,6 +26,7 @@ public class Moves{
 		catch (FileNotFoundException e) {
 			System.out.println("Move File Can't Be Read");
 		}
+		
 		for (String[] moveLog : move_data) {
 			if (moveLog[0].equals(move_ID)) {
 				move_name = moveLog[1];
@@ -37,80 +37,75 @@ public class Moves{
 				priority = Integer.parseInt(moveLog[5]);
 			}
 		}
-	}
-	private void Quick_Attack(Pokemon enemy) {
-		enemy.takeDamage(CalculateDmg(enemy)); 
+		initInstruction(move_ID);
 	}
 	
-	private void Growl(Pokemon enemy) {
-		enemy.decreaseAttack(1);
-	}
-	
-	private void Flamethrower(Pokemon enemy) {
-		enemy.takeDamage(CalculateDmg(enemy));
-		if (Math.random() <= 0.1) {
-			enemy.addStatus("burn");
+	private void initInstruction(String moveID) {
+		switch(moveID){
+			case "NM1": //Protect
+				{break;}
+			case "NM2": 
+				{instruction.Attack(); break;}
+			case "NM3":
+				{instruction.Attack(); break;}
+			case "NM4":
+				{instruction.Attack(); break;} //Target 30% Flinch
+			case "FR1":
+				{instruction.Attack(); break;} //Target 10% burn
+			case "FR2":
+				{instruction.Attack(); instruction.ChangeUserSpeed(1); break;} 
+			case "FR3":
+				{instruction.Attack(); break;} //Target 10% burn
+			case "FR4":
+				{instruction.Attack(); break;} //Target 10% burn, 10% flinch
+			case "FR5":
+				{instruction.Attack(); break;}
+			case "WT1":
+				{instruction.Attack(); break;}
+			case "WT2":
+				{instruction.Attack(); break;} //Recharge
+			case "WT3":
+				{instruction.Attack(); break;} // 20% Confused
+			case "WT4":
+				{instruction.MultiAttack(15); break;}
+			case "WT5":
+				{instruction.Attack(); instruction.ChangeEnemySpeed(-1); break;}
+			case "WT6":
+				{instruction.Attack(); break;}
+			case "WT7":
+				{instruction.Attack(); break;}
+			case "GS1":
+				{instruction.Drain(0.5); break;}
+			case "GS2":
+				{instruction.Attack(); break;}
+			case "GS3":
+				{instruction.Attack(); break;} //Flinch 30%
+			case "GS4":
+				{instruction.Attack(); break;}
+			case "GS":
+				{ break;}
+			default:
+				break;
 		}
 	}
 	
 	
-	private void Flame_Charge(Pokemon enemy) {
-		enemy.takeDamage(CalculateDmg(enemy));
-		user.increaseSpeed(1);
+	public void UseOn(Pokemon enemy) {
+		instruction.Run(this, enemy);
 	}
 	
-	private void Hydro_Pump(Pokemon enemy) {
-		enemy.takeDamage(CalculateDmg(enemy));
-	}
 	
-	private void Leaf_Blade(Pokemon enemy) {
-		enemy.takeDamage(CalculateDmg(enemy));
-	}
 	
-	private void Thunderbolt(Pokemon enemy) {
-		enemy.takeDamage(CalculateDmg(enemy));
-		if (Math.random() <= 0.1) {
-			enemy.addStatus("paralyzed");
-		}
+	public int getPower() {
+		return power;
 	}
-	
-	private void Ice_Punch(Pokemon enemy) {
-		enemy.takeDamage(CalculateDmg(enemy));
-		if (Math.random() <= 0.1) {
-			enemy.addStatus("frozen");
-		}
+
+	public void setPower(int power) {
+		this.power = power;
 	}
-	
-	private void Ice_Fang(Pokemon enemy) {
-		enemy.takeDamage(CalculateDmg(enemy));
-		if (Math.random() <= 0.1) {
-			enemy.addStatus("paralyzed");
-		}
-		if (Math.random() <= 0.1) {
-			enemy.addStatus("flinched");
-		}
-	}
-	
-	public void useOn(Pokemon enemy) {
-		instruction.accept(enemy);
-	}
-	
-	private Consumer<Pokemon> getInstruction(){
-		switch (this.move_ID) {
-		//3 Protect
-		case "FR1": return this::Flamethrower;
-		case "FR2": return this::Flame_Charge;
-		case "WT1": return this::Hydro_Pump;
-		//7 Hydro Canon
-		//8 Leech Seed
-		case "ET1": return this::Thunderbolt;
-		case "IC1": return this::Ice_Punch;
-		case "IC2": return this::Ice_Fang;
-		default: return this::Quick_Attack;
-		}
-	}
-	private int CalculateDmg(Pokemon enemy) {
-		return power * user.getAtk()/enemy.getDef();
+
+	public int CalculateDmg(Pokemon enemy) {
+		return power * user.getCurrent_attack()/enemy.getCurrent_defense();
 	}
 	private String CheckType(String moveID) {
 		switch (moveID.toLowerCase().substring(0, 2)){
