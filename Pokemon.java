@@ -11,9 +11,9 @@ public class Pokemon {
     private int current_defense;
     private int max_speed;
     private int current_speed;
-    private String status_effect;
-    public Moves move1;
-    public Moves move2;
+    private Status status_effect;
+    private Moves move1;
+    private Moves move2;
 
     public Pokemon(int pokemon_id, String name, String[] type, int attack, int current_attack, int defense, int max_speed, int hp_max, String status_effect, String moveID1, String moveID2) {
         this.pokemon_id = pokemon_id;
@@ -90,6 +90,9 @@ public class Pokemon {
     public Moves getMove2() {
         return move2;
     }
+    public Status getStatus() {
+    	return stat;
+    }
 
 
     public void setType(String[] type) {
@@ -102,10 +105,6 @@ public class Pokemon {
 
     public void setCurrent_defense(int current_defense) {
         this.current_defense = current_defense;
-    }
-
-    public void setCurrent_speed(int current_speed) {
-        this.current_speed = current_speed;
     }
 
     public void setCurrent_speed(int current_speed) {
