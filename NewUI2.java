@@ -20,12 +20,8 @@ public class NewUI2 {
         System.out.printf("ID: %d\n", pokemon.getPokemon_id());
         System.out.printf("Name: %s\n", pokemon.getName());
         System.out.printf("Type: %s\n", String.join(", ", pokemon.getType()));
-        System.out.printf("HP: %d\n", pokemon.getHp_max());
-        System.out.printf("Attack: %d\n", pokemon.getAttack());
-        System.out.printf("Defense: %d\n", pokemon.getDefense());
-        System.out.printf("Speed: %d\n", pokemon.getMax_speed());
-        System.out.printf("Move 1: %s\n", pokemon.getMove1());
-        System.out.printf("Move 2: %s\n", pokemon.getMove2());
+        System.out.printf("Move 1: %s\n", pokemon.getMove1().getMove_name());
+        System.out.printf("Move 2: %s\n", pokemon.getMove2().getMove_name());
         displaySeparator();
         System.out.println();
     }    
@@ -49,6 +45,7 @@ public class NewUI2 {
             color = orangeColor;
         } else {
             color = redColor;
+
         }
 
         for (int i = 0; i < barLength; i++) {
@@ -117,6 +114,26 @@ public class NewUI2 {
         System.out.println();
     }
     
+    // Method to display moves and get user choice
+    public Moves displaySelectMove(Pokemon pokemon) {
+        displaySeparator();
+        displaySelectMove();
+        System.out.printf("1. %s%n", pokemon.getMove1().getMove_name());
+        System.out.printf("2. %s%n", pokemon.getMove2().getMove_name());
+        displaySeparator();
+        System.out.print("Enter the number of the move you want to use: ");
+        int choice = scanner.nextInt();
+        if (choice == 1) {
+            return pokemon.getMove1();
+        } else if (choice == 2) {
+            return pokemon.getMove2();
+        } else {
+            System.out.println("Invalid choice. Please select 1 or 2.");
+            return displaySelectMove(pokemon);
+        }
+    }
+
+
     public void displayPlayerAttack(Pokemon playerPokemon, Pokemon opponentPokemon) {
         displayMessage("Your Pokémon attacks the opponent!");
         displaySeparator();
@@ -219,11 +236,11 @@ public class NewUI2 {
         String[] types5 = {"Dragon", "Flying"};
         
         // Creating sample Pokémon objects
-        Pokemon charizard = new Pokemon(1, "Charizard", types1, 78, 84, 78, 100, 100, "None", "Flamethrower", "Fly");
-        Pokemon pikachu = new Pokemon(2, "Pikachu", types2, 35, 55, 40, 90, 100, "None", "Thunderbolt", "Quick Attack");
-        Pokemon blastoise = new Pokemon(3, "Blastoise", types3, 79, 83, 100, 78, 100, "None", "Hydro Pump", "Skull Bash");
-        Pokemon venusaur = new Pokemon(4, "Venusaur", types4, 80, 82, 83, 80, 100, "None", "Solar Beam", "Sludge Bomb");
-        Pokemon dragonite = new Pokemon(5, "Dragonite", types5, 91, 134, 95, 80, 100, "None", "Dragon Claw", "Hurricane");
+        Pokemon charizard = new Pokemon(1, "Charizard", types1, 78, 84, 78, 100, 100, "None", "FR1", "FR2");
+        Pokemon pikachu = new Pokemon(2, "Pikachu", types2, 35, 55, 40, 90, 100, "None", "ET1", "ET2");
+        Pokemon blastoise = new Pokemon(3, "Blastoise", types3, 79, 83, 100, 78, 100, "None", "WT1", "WT2");
+        Pokemon venusaur = new Pokemon(4, "Venusaur", types4, 80, 82, 83, 80, 100, "None", "GS1", "GS2");
+        
         
         // Creating a list of sample Pokémon
         List<Pokemon> samplePokemon = new ArrayList<>();
@@ -231,14 +248,14 @@ public class NewUI2 {
         samplePokemon.add(pikachu);
         samplePokemon.add(blastoise);
         samplePokemon.add(venusaur);
-        samplePokemon.add(dragonite);
+        
         
         // Set current HP for each Pokémon
         charizard.setCurrent_hp(80);
-        pikachu.setCurrent_hp(35);
+        pikachu.setCurrent_hp(18);
         blastoise.setCurrent_hp(79);
         venusaur.setCurrent_hp(80);
-        dragonite.setCurrent_hp(91);
+        
 
         Player player = new Player("Ash", 1000, new ArrayList<>(List.of("Charizard")));
         List<Pokemon> allPokemons = new ArrayList<>(samplePokemon);
@@ -247,7 +264,7 @@ public class NewUI2 {
         Moves Move2 = new Moves(samplePokemon.get(0),"Fly");
 
         Pokemon opponent = new Pokemon(2, "Bulbasaur", types4, 45, 49, 49, 45, 100, "None", "GS1", "GS2");
-        opponent.setCurrent_hp(50);
+        opponent.setCurrent_hp(15);
 
         //test user input name
         //gamemaster or main will say this
@@ -279,7 +296,10 @@ public class NewUI2 {
         
         ui.displayBattleStart();
         
-        
+        // Test move selection
+        Moves selectedMove = ui.displaySelectMove(charizard);
+        ui.displayMessage("You selected: " + selectedMove.getMove_name());
+
         ui.displaySuperEffective();
         
         //An example of choosing a pokemon from the samplepokemon list
