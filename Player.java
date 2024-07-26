@@ -1,6 +1,8 @@
-//add make csv file to list owned pokemon
-
 import java.util.ArrayList;
+import java.util.Formatter;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Player {
 	private String username;
@@ -41,5 +43,17 @@ public class Player {
 	public void setPokemon_list(ArrayList<String> pokemon_list) {
 		this.pokemon_list = pokemon_list;
 	}
-
+	
+	
+	//write to csv file
+	public void pokemonToCSV(String filePath) {
+        try (Formatter output = new Formatter(filePath)) {
+            for (String pokemon: pokemon_list) {
+                output.format("%s \n", pokemon);
+            }
+            System.out.println("Pokemon List file created successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
