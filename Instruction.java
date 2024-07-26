@@ -2,16 +2,9 @@ import java.util.ArrayList;
 import java.util.function.*;
 
 public class Instruction {
-	public ArrayList<BiConsumer<Moves, Pokemon>> queue = new ArrayList<BiConsumer<Moves, Pokemon>>();
 	
-	public void Run(Moves move, Pokemon enemy) {
-		for (int i=0;i < queue.size();i++) {
-			queue.get(i).accept(move , enemy);
-		}
-	}
-	
-	public void Attack(int hits) {
-		queue.add( 		
+	static public BiConsumer<Moves, Pokemon> Attack(int hits) {
+		return( 		
 				(move, enemy) -> {	
 					for (int i=0;i < hits;i++) {
 						System.out.println("HAIIIYAH");
@@ -21,32 +14,73 @@ public class Instruction {
 		);
 	}
 	
-	public void Attack() {
-		queue.add( 		
+	static public BiConsumer<Moves, Pokemon> Attack() {
+		return( 		
 				(move, enemy) -> {	
 					enemy.takeDamage(move.CalculateDmg(enemy)); 
 				}
 		);
 	}
 	
-	public void ChangeUserSpeed(int diff) {
-		queue.add( 		
+	static public BiConsumer<Moves, Pokemon> ChangeUserSpeed(int diff) {
+		return( 		
 				(move, enemy) -> {	
 					move.user.changeSpeed(diff);
 						}
 		);
 	}
 	
-	public void ChangeEnemySpeed(int diff) {
-		queue.add( 		
+	static public BiConsumer<Moves, Pokemon> ChangeEnemySpeed(int diff) {
+		return( 		
 				(move, enemy) -> {	
 					enemy.changeSpeed(diff);
 						}
 		);
 	}
 	
-	public void MultiAttack(int inc) {
-		queue.add( 		
+	static public BiConsumer<Moves, Pokemon> ChangeUserAttack(int diff) {
+		return( 		
+				(move, enemy) -> {	
+					move.user.changeAttack(diff);
+						}
+		);
+	}
+	
+	static public BiConsumer<Moves, Pokemon> ChangeEnemyAttack(int diff) {
+		return( 		
+				(move, enemy) -> {	
+					enemy.changeAttack(diff);
+						}
+		);
+	}
+	
+	static public BiConsumer<Moves, Pokemon> ChangeEnemyDefence(int diff) {
+		return( 		
+				(move, enemy) -> {	
+					enemy.changeDefence(diff);
+						}
+		);
+	}
+	
+	static public BiConsumer<Moves, Pokemon> ChangeEnemyAccuracy(int diff) {
+		return( 		
+				(move, enemy) -> {	
+					enemy.move1.changeAccuracy(diff);
+					enemy.move2.changeAccuracy(diff);
+						}
+		);
+	}
+	
+	static public BiConsumer<Moves, Pokemon> ChangeUserDefence(int diff) {
+		return( 		
+				(move, enemy) -> {	
+					enemy.changeDefence(diff);
+						}
+		);
+	}
+	
+	static public BiConsumer<Moves, Pokemon> MultiAttack(int inc) { //Hits 2-5 times, 1/8 to hit 5 or 4 times, 3/8 to hit 3 or 2 times
+		return( 		
 				(move, enemy) -> {	
 					int hits = 2;
 					int randNm = (int)(Math.random() * 8);
@@ -66,14 +100,55 @@ public class Instruction {
 		);
 	}
 	
-	public void Drain(double perc) {
-		queue.add( 		
+	
+	
+	static public BiConsumer<Moves, Pokemon> Drain(double perc) {
+		return( 		
 				(move, enemy) -> {	
 					int damage = move.CalculateDmg(enemy);
 					enemy.takeDamage(damage); 
 					move.user.setCurrent_hp(move.user.getCurrent_hp() + (int)(damage * perc));
 						}
 		);
+	}
+	
+	static public BiConsumer<Moves, Pokemon> SplitUserHealth(double perc) {
+		return( 		
+				(move, enemy) -> {	
+					System.out.println("OUCH!");
+					move.user.takeDamage((int)(move.user.getHp_max() * perc));
+				}
+		);
+	}
+	
+	static public BiConsumer<Moves, Pokemon> MaxUserHealth() {
+		return( 		
+				(move, enemy) -> {	
+					move.user.setCurrent_hp(move.user.getHp_max());
+				}
+		);
+	}
+	
+	static public BiConsumer<Moves, Pokemon> ExecuteIf(boolean cond, BiConsumer<Moves, Pokemon> success, BiConsumer<Moves, Pokemon> fail) {
+		return( 		
+				(move, enemy) -> {	
+					if (cond) success.accept(move, enemy);
+					else fail.accept(move, enemy);
+				}
+		);
+	}
+	
+	static public BiConsumer<Moves, Pokemon> ExecuteIf(boolean cond, BiConsumer<Moves, Pokemon> success) {
+		return( 		
+				(move, enemy) -> {	
+					if (cond) success.accept(move, enemy);
+				}
+		);
+	}
+	
+	static public boolean ChanceCondition(double perc) {
+		if (Math.random() <= perc) return true;
+		else return false;
 	}
 	
 }

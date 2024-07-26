@@ -7,7 +7,7 @@ public class Moves{
 	Pokemon user;
 	private int power, accuracy, priority;
 	private String  move_ID, type, move_name, move_action;
-	private Instruction instruction = new Instruction();
+	private ArrayList<BiConsumer<Moves, Pokemon>> inst = new ArrayList<BiConsumer<Moves, Pokemon>>();
 	
 	
 	public Moves(Pokemon user, String move_ID){
@@ -40,50 +40,272 @@ public class Moves{
 		initInstruction(move_ID);
 	}
 	
+	public String getMove_name() {
+		return move_name;
+	}
+	
 	private void initInstruction(String moveID) {
 		switch(moveID){
 			case "NM1": //Protect
 				{break;}
 			case "NM2": 
-				{instruction.Attack(); break;}
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;}
 			case "NM3":
-				{instruction.Attack(); break;}
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;}
 			case "NM4":
-				{instruction.Attack(); break;} //Target 30% Flinch
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;} //Target 30% Flinch
 			case "FR1":
-				{instruction.Attack(); break;} //Target 10% burn
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;} //Target 10% burn
 			case "FR2":
-				{instruction.Attack(); instruction.ChangeUserSpeed(1); break;} 
+				{Collections.addAll(inst, 
+						Instruction.Attack(), 
+						Instruction.ChangeUserSpeed(1)); 
+				break;} 
 			case "FR3":
-				{instruction.Attack(); break;} //Target 10% burn
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;} //Target 10% burn
 			case "FR4":
-				{instruction.Attack(); break;} //Target 10% burn, 10% flinch
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;} //Target 10% burn, 10% flinch
 			case "FR5":
-				{instruction.Attack(); break;}
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;}
 			case "WT1":
-				{instruction.Attack(); break;}
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;}
 			case "WT2":
-				{instruction.Attack(); break;} //Recharge
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;} //Recharge
 			case "WT3":
-				{instruction.Attack(); break;} // 20% Confused
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;} // 20% Confused
 			case "WT4":
-				{instruction.MultiAttack(15); break;}
+				{Collections.addAll(inst, 
+						Instruction.MultiAttack(15)); 
+				break;}
 			case "WT5":
-				{instruction.Attack(); instruction.ChangeEnemySpeed(-1); break;}
+				{Collections.addAll(inst, 
+						Instruction.Attack(), 
+						Instruction.ChangeEnemySpeed(-1)); 
+				break;}
 			case "WT6":
-				{instruction.Attack(); break;}
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;}
 			case "WT7":
-				{instruction.Attack(); break;}
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;}
 			case "GS1":
-				{instruction.Drain(0.5); break;}
+				{Collections.addAll(inst,
+						Instruction.Drain(0.5)); 
+				break;}
 			case "GS2":
-				{instruction.Attack(); break;}
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;}
 			case "GS3":
-				{instruction.Attack(); break;} //Flinch 30%
+				{Collections.addAll(inst, 
+						Instruction.Attack());
+				break;} //Flinch 30%
 			case "GS4":
-				{instruction.Attack(); break;}
-			case "GS":
-				{ break;}
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;}
+			case "GS5":
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;}
+			case "GS6":
+				{Collections.addAll(inst, 
+						Instruction.Attack(), 
+						Instruction.ChangeUserAttack(-2)); 
+				break;}
+			case "ET1":
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;} //Paralyze 10%
+			case "ET2":
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;} //Paralyze 100%
+			case "ET3":
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;} //Paralyze 30%
+			case "IC1":
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;} //Freeze 10%
+			case "IC2":
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;} //Freeze 10% Flinch 10%
+			case "FT1":
+				{Collections.addAll(inst, 
+						Instruction.Attack(), 
+						Instruction.ChangeEnemySpeed(-1)); 
+				break;} 
+			case "FT2":
+				{Collections.addAll(inst, 
+						Instruction.Attack(), 
+						Instruction.ChangeEnemyDefence(-1)); 
+				break;}
+			case "FT3":
+				{Collections.addAll(inst, 
+						Instruction.Attack(), 
+						Instruction.ChangeUserSpeed(-1)); 
+				break;}
+			case "FT4":
+				{Collections.addAll(inst, 
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.5), Instruction.Attack(), Instruction.SplitUserHealth(0.5)));
+				break;}
+			case "PS1":
+				{Collections.addAll(inst, 
+						Instruction.Attack()); //Poison 30%
+				break;}
+			case "PS2":
+				{Collections.addAll(inst, 
+						Instruction.Attack()); //BPoison 50%
+				break;}
+			case "GD1":
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;}
+			case "GD2":
+				{Collections.addAll(inst, 
+						Instruction.Attack(),
+						Instruction.ChangeEnemySpeed(-1)); 
+				break;}
+			case "GD3":
+				{Collections.addAll(inst, 
+						Instruction.Attack(),
+						Instruction.ChangeEnemyAccuracy(-10)); 
+				break;}
+			case "FL1":
+				{Collections.addAll(inst, 
+						null); //Doubles Speed 4 Turns
+				break;}
+			case "FL2":
+				{Collections.addAll(inst, 
+						null); //T1 Fly Then Attacks T2
+				break;}
+			case "FL3":
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;}
+			case "FL4":
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;}
+			case "PC1":
+				{Collections.addAll(inst, 
+						Instruction.Attack()); //Confuse 10%
+				break;}
+			case "PC2":
+				{Collections.addAll(inst, 
+						Instruction.MaxUserHealth()); //User Sleep 100% 
+				break;}
+			case "PC3":
+				{Collections.addAll(inst, 
+						null); // Sleep
+				break;}
+			case "PC4":
+				{Collections.addAll(inst, 
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ChangeEnemyDefence(-1)));
+				break;}
+			case "BG1":
+				{Collections.addAll(inst, 
+						Instruction.Drain(0.5)); 
+				break;}
+			case "BG2":
+				{Collections.addAll(inst, 
+						Instruction.Attack()); //Confuse 10% 
+				break;}
+			case "BG3":
+				{Collections.addAll(inst, 
+						Instruction.Attack(2)); 
+				break;}
+			case "RC1":
+				{Collections.addAll(inst, 
+						Instruction.Attack()); //Flinch 30%
+				break;}
+			case "RC2":
+				{Collections.addAll(inst, 
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.5), Instruction.ChangeUserSpeed(2))); 
+				break;}
+			case "GH1":
+				{Collections.addAll(inst, 
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.2), Instruction.ChangeEnemyDefence(-1))); 
+				break;}
+			case "GH2":
+				{Collections.addAll(inst, 
+						Instruction.ExecuteIf(true, Instruction.SplitUserHealth(0.25))); 
+				break;}
+			case "DG1":
+				{Collections.addAll(inst, 
+						Instruction.ChangeUserAttack(2),
+						Instruction.ChangeUserSpeed(2));
+				break;}
+			case "DG2":
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;}
+			case "DR1":
+				{Collections.addAll(inst, 
+						Instruction.Attack()); //Flinch 30% 
+				break;}
+			case "DR2":
+				{Collections.addAll(inst, 
+						null); // Does double damage if user was attacked
+				break;}
+			case "DR3":
+				{Collections.addAll(inst, 
+						Instruction.Attack()); 
+				break;}
+			case "ST1":
+				{Collections.addAll(inst, 
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.3), Instruction.ChangeEnemyDefence(-1))); 
+				break;}
+			case "ST2":
+				{Collections.addAll(inst, 
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ChangeUserAttack(1))); 
+				break;}
+			case "ST3":
+				{Collections.addAll(inst, 
+						Instruction.ChangeUserDefence(2)); 
+				break;}
+			case "FY1":
+				{Collections.addAll(inst, 
+						Instruction.ChangeEnemyAttack(-1)); 
+				break;}
+			case "FY2":
+				{Collections.addAll(inst, 
+						Instruction.ChangeEnemyAttack(-2)); 
+				break;}
+			case "FY3":
+				{Collections.addAll(inst, 
+						Instruction.Drain(0.75)); 
+				break;}
 			default:
 				break;
 		}
@@ -91,7 +313,9 @@ public class Moves{
 	
 	
 	public void UseOn(Pokemon enemy) {
-		instruction.Run(this, enemy);
+		for (int i=0;i < inst.size();i++) {
+			inst.get(i).accept(this, enemy);
+		}
 	}
 	
 	
@@ -99,7 +323,11 @@ public class Moves{
 	public int getPower() {
 		return power;
 	}
-
+	
+	public void changeAccuracy(int num) {
+		accuracy += num;
+	}
+	
 	public void setPower(int power) {
 		this.power = power;
 	}
@@ -107,6 +335,11 @@ public class Moves{
 	public int CalculateDmg(Pokemon enemy) {
 		return power * user.getCurrent_attack()/enemy.getCurrent_defense();
 	}
+	
+	public static int CalculateDmg(int power, Pokemon user, Pokemon enemy) {
+		return power * user.getCurrent_attack()/enemy.getCurrent_defense();
+	}
+	
 	private String CheckType(String moveID) {
 		switch (moveID.toLowerCase().substring(0, 2)){
 		case "nm": return "Normal";
