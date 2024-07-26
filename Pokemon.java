@@ -15,7 +15,7 @@ public class Pokemon {
     private Moves move1;
     private Moves move2;
 
-    public Pokemon(int pokemon_id, String name, String[] type, int attack, int current_attack, int defense, int max_speed, int hp_max, String status_effect, String moveID1, String moveID2) {
+    public Pokemon(int pokemon_id, String name, String[] type, int attack, int current_attack, int defense, int max_speed, int hp_max, String moveID1, String moveID2) {
         this.pokemon_id = pokemon_id;
         this.name = name;
         this.type = type;
@@ -27,9 +27,8 @@ public class Pokemon {
         this.max_speed = max_speed;
         this.current_speed = max_speed;
         this.hp_max = hp_max;
-        this.status_effect = status_effect;
-        Moves move1;
-        Moves move2;
+        move1 = new Moves(moveID1);
+        move2 = new Moves(moveID2);
 
     }
     
