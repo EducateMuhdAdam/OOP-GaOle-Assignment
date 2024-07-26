@@ -108,13 +108,19 @@ public class Pokemon {
         this.current_speed = current_speed;
     }
 
-    public void setStatus_effect(String status_effect) {
-        this.status_effect = status_effect;
-    }
-    
-    
+    public void setCurrent_speed(int current_speed) {
+        this.current_speed = current_speed;
+    }  
     public void changeSpeed(int speed) {
     	current_speed += speed;
+    }
+    
+    public void changeAttack(int atk) {
+    	current_attack += atk;
+    }
+    
+    public void changeDefence(int def) {
+    	current_attack += def;
     }
     
     public void takeDamage(int damage) {
