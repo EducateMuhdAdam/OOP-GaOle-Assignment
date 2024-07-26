@@ -11,7 +11,7 @@ public class Pokemon {
     private int current_defense;
     private int max_speed;
     private int current_speed;
-    private String status_effect;
+    private Status status_effect;
     public Moves move1;
     public Moves move2;
 
@@ -102,10 +102,6 @@ public class Pokemon {
 
     public void setCurrent_defense(int current_defense) {
         this.current_defense = current_defense;
-    }
-
-    public void setCurrent_speed(int current_speed) {
-        this.current_speed = current_speed;
     }
 
     public void setCurrent_speed(int current_speed) {
