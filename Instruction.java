@@ -65,8 +65,8 @@ public class Instruction {
 	static public BiConsumer<Moves, Pokemon> ChangeEnemyAccuracy(int diff) {
 		return( 		
 				(move, enemy) -> {	
-					enemy.move1.changeAccuracy(diff);
-					enemy.move2.changeAccuracy(diff);
+					enemy.getMove1().changeAccuracy(diff);
+					enemy.getMove2().changeAccuracy(diff);
 						}
 		);
 	}
@@ -119,6 +119,40 @@ public class Instruction {
 					move.user.takeDamage((int)(move.user.getHp_max() * perc));
 				}
 		);
+	}
+	
+	static public BiConsumer<Moves, Pokemon> ApplyEnemyStatus(String ail) {
+		switch (ail.toLowerCase()) {
+			case "brn": return (move, enemy) -> {enemy.getStatus().Burn();};
+			case "psn": return (move, enemy) -> {enemy.getStatus().Poison();};
+			case "cnf": return (move, enemy) -> {enemy.getStatus().Confuse();};
+			case "frz": return (move, enemy) -> {enemy.getStatus().Freeze();};
+			case "prl": return (move, enemy) -> {enemy.getStatus().Paralyze();};
+			case "slp": return (move, enemy) -> {enemy.getStatus().Sleep();};
+			case "flc": return (move, enemy) -> {enemy.getStatus().Flinch();};
+			case "spd": return (move, enemy) -> {enemy.getStatus().SpdBuff();};
+			default: {
+				System.out.println("Error: Status Instruction not Applied");
+				return (move, enemy) -> {};
+			}
+		}
+	}
+	
+	static public BiConsumer<Moves, Pokemon> ApplyUserStatus(String ail) {
+		switch (ail.toLowerCase()) {
+			case "brn": return (move, enemy) -> {move.user.getStatus().Burn();};
+			case "psn": return (move, enemy) -> {move.user.getStatus().Poison();};
+			case "cnf": return (move, enemy) -> {move.user.getStatus().Confuse();};
+			case "frz": return (move, enemy) -> {move.user.getStatus().Freeze();};
+			case "prl": return (move, enemy) -> {move.user.getStatus().Paralyze();};
+			case "slp": return (move, enemy) -> {move.user.getStatus().Sleep();};
+			case "flc": return (move, enemy) -> {move.user.getStatus().Flinch();};
+			case "spd": return (move, enemy) -> {move.user.getStatus().SpdBuff();};
+			default: {
+				System.out.println("Error: Status Instruction not Applied");
+				return (move, enemy) -> {};
+			}
+		}
 	}
 	
 	static public BiConsumer<Moves, Pokemon> MaxUserHealth() {
