@@ -58,12 +58,16 @@ public class Moves{
 				break;}
 			case "NM4":
 				{Collections.addAll(inst, 
-						Instruction.Attack()); 
-				break;} //Target 30% Flinch
+						Instruction.Attack(), 
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.3), Instruction.ApplyEnemyStatus("flc"))
+						);
+				break;} 
 			case "FR1":
 				{Collections.addAll(inst, 
-						Instruction.Attack()); 
-				break;} //Target 10% burn
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("brn"))
+						);
+				break;} 
 			case "FR2":
 				{Collections.addAll(inst, 
 						Instruction.Attack(), 
@@ -71,12 +75,17 @@ public class Moves{
 				break;} 
 			case "FR3":
 				{Collections.addAll(inst, 
-						Instruction.Attack()); 
-				break;} //Target 10% burn
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("brn"))
+						); 
+				break;} 
 			case "FR4":
 				{Collections.addAll(inst, 
-						Instruction.Attack()); 
-				break;} //Target 10% burn, 10% flinch
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("brn")),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("flc"))
+								); 
+				break;}
 			case "FR5":
 				{Collections.addAll(inst, 
 						Instruction.Attack()); 
@@ -91,8 +100,10 @@ public class Moves{
 				break;} //Recharge
 			case "WT3":
 				{Collections.addAll(inst, 
-						Instruction.Attack()); 
-				break;} // 20% Confused
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.2), Instruction.ApplyEnemyStatus("cnf"))
+						); 
+				break;}
 			case "WT4":
 				{Collections.addAll(inst, 
 						Instruction.MultiAttack(15)); 
@@ -120,8 +131,10 @@ public class Moves{
 				break;}
 			case "GS3":
 				{Collections.addAll(inst, 
-						Instruction.Attack());
-				break;} //Flinch 30%
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.3), Instruction.ApplyEnemyStatus("flc"))
+						);
+				break;}
 			case "GS4":
 				{Collections.addAll(inst, 
 						Instruction.Attack()); 
@@ -137,24 +150,35 @@ public class Moves{
 				break;}
 			case "ET1":
 				{Collections.addAll(inst, 
-						Instruction.Attack()); 
-				break;} //Paralyze 10%
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("prl"))
+						); 
+				break;}
 			case "ET2":
 				{Collections.addAll(inst, 
-						Instruction.Attack()); 
-				break;} //Paralyze 100%
+						Instruction.Attack(),
+						Instruction.ApplyEnemyStatus("prl")
+						); 
+				break;}
 			case "ET3":
 				{Collections.addAll(inst, 
-						Instruction.Attack()); 
-				break;} //Paralyze 30%
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.3), Instruction.ApplyEnemyStatus("prl"))
+						); 
+				break;}
 			case "IC1":
 				{Collections.addAll(inst, 
-						Instruction.Attack()); 
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("frz"))
+						); 
 				break;} //Freeze 10%
 			case "IC2":
 				{Collections.addAll(inst, 
-						Instruction.Attack()); 
-				break;} //Freeze 10% Flinch 10%
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("frz")),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("flc"))
+						); 
+				break;}
 			case "FT1":
 				{Collections.addAll(inst, 
 						Instruction.Attack(), 
@@ -176,7 +200,9 @@ public class Moves{
 				break;}
 			case "PS1":
 				{Collections.addAll(inst, 
-						Instruction.Attack()); //Poison 30%
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.3), Instruction.ApplyEnemyStatus("psn"))
+						); //Poison 30%
 				break;}
 			case "PS2":
 				{Collections.addAll(inst, 
@@ -198,7 +224,7 @@ public class Moves{
 				break;}
 			case "FL1":
 				{Collections.addAll(inst, 
-						null); //Doubles Speed 4 Turns
+						Instruction.ApplyUserStatus("spd"));
 				break;}
 			case "FL2":
 				{Collections.addAll(inst, 
@@ -214,15 +240,19 @@ public class Moves{
 				break;}
 			case "PC1":
 				{Collections.addAll(inst, 
-						Instruction.Attack()); //Confuse 10%
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("cnf"))
+						);
 				break;}
 			case "PC2":
 				{Collections.addAll(inst, 
-						Instruction.MaxUserHealth()); //User Sleep 100% 
+						Instruction.MaxUserHealth(),
+						Instruction.ApplyUserStatus("slp")
+						); 
 				break;}
 			case "PC3":
 				{Collections.addAll(inst, 
-						null); // Sleep
+						Instruction.ApplyEnemyStatus("slp")); 
 				break;}
 			case "PC4":
 				{Collections.addAll(inst, 
@@ -235,7 +265,9 @@ public class Moves{
 				break;}
 			case "BG2":
 				{Collections.addAll(inst, 
-						Instruction.Attack()); //Confuse 10% 
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("cnf"))
+						);
 				break;}
 			case "BG3":
 				{Collections.addAll(inst, 
@@ -243,7 +275,9 @@ public class Moves{
 				break;}
 			case "RC1":
 				{Collections.addAll(inst, 
-						Instruction.Attack()); //Flinch 30%
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("flc"))
+						);
 				break;}
 			case "RC2":
 				{Collections.addAll(inst, 
@@ -257,7 +291,7 @@ public class Moves{
 				break;}
 			case "GH2":
 				{Collections.addAll(inst, 
-						Instruction.ExecuteIf(true, Instruction.SplitUserHealth(0.25))); 
+						Instruction.ExecuteIf(true, Instruction.SplitUserHealth(0.25))); //if sleep
 				break;}
 			case "DG1":
 				{Collections.addAll(inst, 
@@ -270,7 +304,9 @@ public class Moves{
 				break;}
 			case "DR1":
 				{Collections.addAll(inst, 
-						Instruction.Attack()); //Flinch 30% 
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.3), Instruction.ApplyEnemyStatus("flc"))
+						); 
 				break;}
 			case "DR2":
 				{Collections.addAll(inst, 
@@ -333,7 +369,7 @@ public class Moves{
 	}
 
 	public int CalculateDmg(Pokemon enemy) {
-		return power * user.getCurrent_attack()/enemy.getCurrent_defense();
+		return (int)(power * user.getCurrent_attack()/enemy.getCurrent_defense() * user.getStatus().getdmgMult());
 	}
 	
 	public static int CalculateDmg(int power, Pokemon user, Pokemon enemy) {
