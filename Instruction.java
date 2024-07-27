@@ -7,7 +7,6 @@ public class Instruction {
 		return( 		
 				(move, enemy) -> {	
 					for (int i=0;i < hits;i++) {
-						System.out.println("HAIIIYAH");
 						enemy.takeDamage(move.CalculateDmg(enemy)); 
 					}
 				}
@@ -121,38 +120,12 @@ public class Instruction {
 		);
 	}
 	
-	static public BiConsumer<Moves, Pokemon> ApplyEnemyStatus(String ail) {
-		switch (ail.toLowerCase()) {
-			case "brn": return (move, enemy) -> {enemy.getStatus().Burn();};
-			case "psn": return (move, enemy) -> {enemy.getStatus().Poison();};
-			case "cnf": return (move, enemy) -> {enemy.getStatus().Confuse();};
-			case "frz": return (move, enemy) -> {enemy.getStatus().Freeze();};
-			case "prl": return (move, enemy) -> {enemy.getStatus().Paralyze();};
-			case "slp": return (move, enemy) -> {enemy.getStatus().Sleep();};
-			case "flc": return (move, enemy) -> {enemy.getStatus().Flinch();};
-			case "spd": return (move, enemy) -> {enemy.getStatus().SpdBuff();};
-			default: {
-				System.out.println("Error: Status Instruction not Applied");
-				return (move, enemy) -> {};
-			}
-		}
+	static public BiConsumer<Moves, Pokemon> ApplyEnemyStatus(Consumer<Status> ail) {
+		return (move, enemy) -> {enemy.getStatus().AddStatus(ail);};
 	}
 	
-	static public BiConsumer<Moves, Pokemon> ApplyUserStatus(String ail) {
-		switch (ail.toLowerCase()) {
-			case "brn": return (move, enemy) -> {move.user.getStatus().Burn();};
-			case "psn": return (move, enemy) -> {move.user.getStatus().Poison();};
-			case "cnf": return (move, enemy) -> {move.user.getStatus().Confuse();};
-			case "frz": return (move, enemy) -> {move.user.getStatus().Freeze();};
-			case "prl": return (move, enemy) -> {move.user.getStatus().Paralyze();};
-			case "slp": return (move, enemy) -> {move.user.getStatus().Sleep();};
-			case "flc": return (move, enemy) -> {move.user.getStatus().Flinch();};
-			case "spd": return (move, enemy) -> {move.user.getStatus().SpdBuff();};
-			default: {
-				System.out.println("Error: Status Instruction not Applied");
-				return (move, enemy) -> {};
-			}
-		}
+	static public BiConsumer<Moves, Pokemon> ApplyUserStatus(Consumer<Status> ail) {
+		return (move, enemy) -> {move.user.getStatus().AddStatus(ail);};
 	}
 	
 	static public BiConsumer<Moves, Pokemon> MaxUserHealth() {
@@ -180,9 +153,48 @@ public class Instruction {
 		);
 	}
 	
+	static public BiConsumer<Moves, Pokemon> ExecuteIf(BiFunction<Moves, Pokemon, Boolean> cond, BiConsumer<Moves, Pokemon> success) {
+		return( 		
+				(move, enemy) -> {	
+					if (cond.apply(move, enemy)) success.accept(move, enemy);
+				}
+		);
+	}
+	
+	static public BiConsumer<Moves, Pokemon> ExecuteIf(BiFunction<Moves, Pokemon, Boolean> cond, BiConsumer<Moves, Pokemon> success, BiConsumer<Moves, Pokemon> fail) {
+		return( 		
+				(move, enemy) -> {	
+					if (cond.apply(move, enemy)) success.accept(move, enemy);
+					else fail.accept(move, enemy);
+				}
+		);
+	}
+	
 	static public boolean ChanceCondition(double perc) {
 		if (Math.random() <= perc) return true;
 		else return false;
+	}
+	
+	static public BiFunction<Moves, Pokemon, Boolean> EnemyStatusCondition(Class<?> ail) {
+		return ( 
+				(move, enemy) -> {
+					for (Status s: enemy.getStatus().getStatusList()) {
+						if (ail.isInstance(s)) return true;
+					}
+					return false;
+				}
+		);
+	}
+	
+	static public BiFunction<Moves, Pokemon, Boolean> UserStatusCondition(Class<?> ail) {
+		return ( 
+				(move, enemy) -> {
+					for (Status s: move.user.getStatus().getStatusList()) {
+						if (ail.isInstance(s)) return true;
+					}
+					return false;
+				}
+		);
 	}
 	
 }

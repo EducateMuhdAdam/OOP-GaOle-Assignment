@@ -44,10 +44,14 @@ public class Moves{
 		return move_name;
 	}
 	
+	//TO-DO Reformat the csv file for move_action to 'self' or 'enemy'
+	
 	private void initInstruction(String moveID) {
 		switch(moveID){
 			case "NM1": //Protect
-				{break;}
+				{Collections.addAll(inst, 
+						Instruction.ApplyEnemyStatus(Status::Protect)); //Check for reoccurence
+			break;}
 			case "NM2": 
 				{Collections.addAll(inst, 
 						Instruction.Attack()); 
@@ -59,13 +63,13 @@ public class Moves{
 			case "NM4":
 				{Collections.addAll(inst, 
 						Instruction.Attack(), 
-						Instruction.ExecuteIf(Instruction.ChanceCondition(0.3), Instruction.ApplyEnemyStatus("flc"))
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.3), Instruction.ApplyEnemyStatus(Status::Flinch))
 						);
 				break;} 
 			case "FR1":
 				{Collections.addAll(inst, 
 						Instruction.Attack(),
-						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("brn"))
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus(Status::Burn))
 						);
 				break;} 
 			case "FR2":
@@ -76,14 +80,14 @@ public class Moves{
 			case "FR3":
 				{Collections.addAll(inst, 
 						Instruction.Attack(),
-						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("brn"))
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus(Status::Burn))
 						); 
 				break;} 
 			case "FR4":
 				{Collections.addAll(inst, 
 						Instruction.Attack(),
-						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("brn")),
-						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("flc"))
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus(Status::Burn)),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus(Status::Flinch))
 								); 
 				break;}
 			case "FR5":
@@ -96,12 +100,13 @@ public class Moves{
 				break;}
 			case "WT2":
 				{Collections.addAll(inst, 
-						Instruction.Attack()); 
-				break;} //Recharge
+						Instruction.Attack(),
+						Instruction.ApplyUserStatus(Status::Recharge)); 
+				break;}
 			case "WT3":
 				{Collections.addAll(inst, 
 						Instruction.Attack(),
-						Instruction.ExecuteIf(Instruction.ChanceCondition(0.2), Instruction.ApplyEnemyStatus("cnf"))
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.2), Instruction.ApplyEnemyStatus(Status::Confuse))
 						); 
 				break;}
 			case "WT4":
@@ -132,7 +137,7 @@ public class Moves{
 			case "GS3":
 				{Collections.addAll(inst, 
 						Instruction.Attack(),
-						Instruction.ExecuteIf(Instruction.ChanceCondition(0.3), Instruction.ApplyEnemyStatus("flc"))
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.3), Instruction.ApplyEnemyStatus(Status::Flinch))
 						);
 				break;}
 			case "GS4":
@@ -151,32 +156,32 @@ public class Moves{
 			case "ET1":
 				{Collections.addAll(inst, 
 						Instruction.Attack(),
-						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("prl"))
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus(Status::Paralyze))
 						); 
 				break;}
 			case "ET2":
 				{Collections.addAll(inst, 
 						Instruction.Attack(),
-						Instruction.ApplyEnemyStatus("prl")
+						Instruction.ApplyEnemyStatus(Status::Paralyze)
 						); 
 				break;}
 			case "ET3":
 				{Collections.addAll(inst, 
 						Instruction.Attack(),
-						Instruction.ExecuteIf(Instruction.ChanceCondition(0.3), Instruction.ApplyEnemyStatus("prl"))
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.3), Instruction.ApplyEnemyStatus(Status::Paralyze))
 						); 
 				break;}
 			case "IC1":
 				{Collections.addAll(inst, 
 						Instruction.Attack(),
-						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("frz"))
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus(Status::Freeze))
 						); 
 				break;} //Freeze 10%
 			case "IC2":
 				{Collections.addAll(inst, 
 						Instruction.Attack(),
-						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("frz")),
-						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("flc"))
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus(Status::Freeze)),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus(Status::Flinch))
 						); 
 				break;}
 			case "FT1":
@@ -201,12 +206,13 @@ public class Moves{
 			case "PS1":
 				{Collections.addAll(inst, 
 						Instruction.Attack(),
-						Instruction.ExecuteIf(Instruction.ChanceCondition(0.3), Instruction.ApplyEnemyStatus("psn"))
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.3), Instruction.ApplyEnemyStatus(Status::Poison))
 						); //Poison 30%
 				break;}
 			case "PS2":
 				{Collections.addAll(inst, 
-						Instruction.Attack()); //BPoison 50%
+						Instruction.Attack(),
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.5), Instruction.ApplyEnemyStatus(Status::BPoison))); //BPoison 50%
 				break;}
 			case "GD1":
 				{Collections.addAll(inst, 
@@ -224,11 +230,11 @@ public class Moves{
 				break;}
 			case "FL1":
 				{Collections.addAll(inst, 
-						Instruction.ApplyUserStatus("spd"));
+						Instruction.ApplyUserStatus(Status::SpdBuff));
 				break;}
 			case "FL2":
 				{Collections.addAll(inst, 
-						null); //T1 Fly Then Attacks T2
+						Instruction.ExecuteIf(Instruction.UserStatusCondition(Fly.class), Instruction.Attack(), Instruction.ApplyUserStatus(Status::Fly))); //T1 Fly Then Attacks T2
 				break;}
 			case "FL3":
 				{Collections.addAll(inst, 
@@ -241,18 +247,18 @@ public class Moves{
 			case "PC1":
 				{Collections.addAll(inst, 
 						Instruction.Attack(),
-						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("cnf"))
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus(Status::Confuse))
 						);
 				break;}
 			case "PC2":
 				{Collections.addAll(inst, 
 						Instruction.MaxUserHealth(),
-						Instruction.ApplyUserStatus("slp")
+						Instruction.ApplyUserStatus(Status::Sleep)
 						); 
 				break;}
 			case "PC3":
 				{Collections.addAll(inst, 
-						Instruction.ApplyEnemyStatus("slp")); 
+						Instruction.ApplyEnemyStatus(Status::Sleep)); 
 				break;}
 			case "PC4":
 				{Collections.addAll(inst, 
@@ -266,7 +272,7 @@ public class Moves{
 			case "BG2":
 				{Collections.addAll(inst, 
 						Instruction.Attack(),
-						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("cnf"))
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus(Status::Confuse))
 						);
 				break;}
 			case "BG3":
@@ -276,7 +282,7 @@ public class Moves{
 			case "RC1":
 				{Collections.addAll(inst, 
 						Instruction.Attack(),
-						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus("flc"))
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus(Status::Flinch))
 						);
 				break;}
 			case "RC2":
@@ -291,7 +297,7 @@ public class Moves{
 				break;}
 			case "GH2":
 				{Collections.addAll(inst, 
-						Instruction.ExecuteIf(true, Instruction.SplitUserHealth(0.25))); //if sleep
+						Instruction.ExecuteIf(Instruction.EnemyStatusCondition(Sleep.class), Instruction.SplitUserHealth(0.25))); //if sleep
 				break;}
 			case "DG1":
 				{Collections.addAll(inst, 
@@ -305,7 +311,7 @@ public class Moves{
 			case "DR1":
 				{Collections.addAll(inst, 
 						Instruction.Attack(),
-						Instruction.ExecuteIf(Instruction.ChanceCondition(0.3), Instruction.ApplyEnemyStatus("flc"))
+						Instruction.ExecuteIf(Instruction.ChanceCondition(0.3), Instruction.ApplyEnemyStatus(Status::Flinch))
 						); 
 				break;}
 			case "DR2":

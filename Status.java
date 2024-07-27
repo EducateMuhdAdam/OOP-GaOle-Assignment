@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public class Status {
 	public Pokemon user;
@@ -19,6 +20,10 @@ public class Status {
 	
 	public void Poison() {
 		status_list.add(new Poison(user));
+	}
+	
+	public void BPoison() {
+		status_list.add(new BPoison(user));
 	}
 	
 	public void Confuse() {
@@ -44,6 +49,18 @@ public class Status {
 	public void SpdBuff() {
 		status_list.add(new SpdBuff(user));
 	}
+	public void DmgBuff() {
+		status_list.add(new DmgBuff(user));
+	}
+	public void Fly() {
+		status_list.add(new Fly(user));
+	}
+	public void Protect() {
+		status_list.add(new Protect(user));
+	}
+	public void Recharge() {
+		status_list.add(new Recharge(user));
+	}
 	
 	//--------------------------------------------------
 	
@@ -64,9 +81,17 @@ public class Status {
 	public void Endstep() {
 		
 	}
+	
+	public boolean PreventAttack() {
+		return false;
+	}
 	//--------------------------------------------------
 	
 	//Status Class Methods------------------------------
+	
+	public void AddStatus(Consumer<Status> s) {
+		s.accept(this);
+	}
 	
 	public void RemoveStatus(Status s) {
 		for (int i = 0; i < status_list.size(); i++) {
@@ -111,6 +136,11 @@ public class Status {
 			s.Endstep();
 		}
 	}
+	
+	public ArrayList<Status> getStatusList() {
+		return status_list;
+	}
+	
 	//--------------------------------------------------
 }
 
@@ -141,6 +171,21 @@ public class Status {
 		@Override
 		public void Endstep() {
 			user.takeDamage(user.getHp_max() / 16);
+			
+		}
+	}
+	
+	class BPoison extends Status{
+		int inc;
+		public BPoison(Pokemon user) {
+			super(user);
+			inc = 0;
+			System.out.println("I am badly poisoned"); //temp
+		}
+		@Override
+		public void Endstep() {
+			inc += 1;
+			user.takeDamage(user.getHp_max() * inc/ 16);
 			
 		}
 	}
@@ -227,5 +272,49 @@ public class Status {
 		@Override
 		public double spdMult() {
 			return 2;
+		}
+	}
+	
+	class DmgBuff extends Status{
+		public DmgBuff(Pokemon user) {
+			super(user);
+			System.out.println("I am Stronger!");
+		}
+		@Override
+		public double dmgMult() {
+			return 2;
+		}
+	}
+	
+	class Fly extends Status{
+		public Fly(Pokemon user) {
+			super(user);
+			System.out.println("I am flying!");
+		}
+		@Override
+		public boolean PreventAttack() {
+			return true;
+		}
+	}
+	
+	class Protect extends Status{
+		public Protect(Pokemon user) {
+			super(user);
+			System.out.println("I am Protected!");
+		}
+		@Override
+		public boolean PreventAttack() {
+			return true;
+		}
+	}
+	
+	class Recharge extends Status{
+		public Recharge(Pokemon user) {
+			super(user);
+			System.out.println("I am Recharging!");
+		}
+		@Override
+		public void Upkeep() {
+			//skip turn
 		}
 	}
