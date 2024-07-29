@@ -149,7 +149,7 @@ public class Status {
 
 		public Burn(Pokemon user) {
 			super(user);
-			System.out.println("I am burning");
+			UI.displayStatusChange(user, "Burning");
 		}
 		@Override
 		public void Endstep() {
@@ -166,7 +166,7 @@ public class Status {
 	class Poison extends Status{
 		public Poison(Pokemon user) {
 			super(user);
-			System.out.println("I am poisoned"); //temp
+			UI.displayStatusChange(user, "Poisoned");
 		}
 		@Override
 		public void Endstep() {
@@ -180,7 +180,7 @@ public class Status {
 		public BPoison(Pokemon user) {
 			super(user);
 			inc = 0;
-			System.out.println("I am badly poisoned"); //temp
+			UI.displayStatusChange(user, "Badly Poisoned");
 		}
 		@Override
 		public void Endstep() {
@@ -193,7 +193,7 @@ public class Status {
 	class Confuse extends Status{
 		public Confuse(Pokemon user) {
 			super(user);
-			System.out.println("I am confused"); //temp
+			UI.displayStatusChange(user, "Confused");
 		}
 		@Override
 		public void Upkeep() {
@@ -208,7 +208,7 @@ public class Status {
 	class Freeze extends Status{
 		public Freeze(Pokemon user) {
 			super(user);
-			System.out.println("I am frozen");
+			UI.displayStatusChange(user, "Frozen");
 		}
 		@Override
 		public void Upkeep() {
@@ -225,7 +225,7 @@ public class Status {
 	class Paralyze extends Status{
 		public Paralyze(Pokemon user) {
 			super(user);
-			System.out.println("I am paralyzed");
+			UI.displayStatusChange(user, "Paralyzed");
 		}
 		@Override
 		public void Upkeep() {
@@ -243,7 +243,7 @@ public class Status {
 	class Sleep extends Status{
 		public Sleep(Pokemon user) {
 			super(user);
-			System.out.println("I am sleeping");
+			UI.displayStatusChange(user, "Sleeping");
 		}
 		@Override
 		public void Upkeep() {
@@ -255,7 +255,7 @@ public class Status {
 	class Flinch extends Status{
 		public Flinch(Pokemon user) {
 			super(user);
-			System.out.println("I Flinched!");
+			UI.displayAction(user, "Flinched");
 		}
 		@Override
 		public void Upkeep() {
@@ -267,7 +267,7 @@ public class Status {
 	class SpdBuff extends Status{
 		public SpdBuff(Pokemon user) {
 			super(user);
-			System.out.println("I am faster!");
+			UI.displayAction(user, "is now faster");
 		}
 		@Override
 		public double spdMult() {
@@ -278,7 +278,7 @@ public class Status {
 	class DmgBuff extends Status{
 		public DmgBuff(Pokemon user) {
 			super(user);
-			System.out.println("I am Stronger!");
+			UI.displayAction(user, "is now stronger");
 		}
 		@Override
 		public double dmgMult() {
@@ -289,7 +289,7 @@ public class Status {
 	class Fly extends Status{
 		public Fly(Pokemon user) {
 			super(user);
-			System.out.println("I am flying!");
+			UI.displayAction(user, "flew up in the air");
 		}
 		@Override
 		public boolean PreventAttack() {
@@ -300,7 +300,7 @@ public class Status {
 	class Protect extends Status{
 		public Protect(Pokemon user) {
 			super(user);
-			System.out.println("I am Protected!");
+			UI.displayAction(user, "protected itself");
 		}
 		@Override
 		public boolean PreventAttack() {
@@ -311,7 +311,7 @@ public class Status {
 	class Recharge extends Status{
 		public Recharge(Pokemon user) {
 			super(user);
-			System.out.println("I am Recharging!");
+			UI.displayAction(user, "is recharging");
 		}
 		@Override
 		public void Upkeep() {

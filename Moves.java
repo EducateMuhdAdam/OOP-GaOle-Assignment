@@ -6,8 +6,9 @@ import java.lang.Math;
 public class Moves{
 	Pokemon user;
 	private int power, accuracy, priority;
-	private String  move_ID, type, move_name, move_action;
+	private String  move_ID, move_name, move_action;
 	private ArrayList<BiConsumer<Moves, Pokemon>> inst = new ArrayList<BiConsumer<Moves, Pokemon>>();
+	private Type type;
 	
 	
 	public Moves(Pokemon user, String move_ID){
@@ -44,11 +45,11 @@ public class Moves{
 		return move_name;
 	}
 	
-	//TO-DO Reformat the csv file for move_action to 'self' or 'enemy'
+	//TO-DO Reformat the accuracy for stages
 	
 	private void initInstruction(String moveID) {
 		switch(moveID){
-			case "NM1": //Protect
+			case "NM1": //self
 				{Collections.addAll(inst, 
 						Instruction.ApplyEnemyStatus(Status::Protect)); //Check for reoccurence
 			break;}
@@ -228,7 +229,7 @@ public class Moves{
 						Instruction.Attack(),
 						Instruction.ChangeEnemyAccuracy(-10)); 
 				break;}
-			case "FL1":
+			case "FL1": //self
 				{Collections.addAll(inst, 
 						Instruction.ApplyUserStatus(Status::SpdBuff));
 				break;}
@@ -250,7 +251,7 @@ public class Moves{
 						Instruction.ExecuteIf(Instruction.ChanceCondition(0.1), Instruction.ApplyEnemyStatus(Status::Confuse))
 						);
 				break;}
-			case "PC2":
+			case "PC2": //self
 				{Collections.addAll(inst, 
 						Instruction.MaxUserHealth(),
 						Instruction.ApplyUserStatus(Status::Sleep)
@@ -299,7 +300,7 @@ public class Moves{
 				{Collections.addAll(inst, 
 						Instruction.ExecuteIf(Instruction.EnemyStatusCondition(Sleep.class), Instruction.SplitUserHealth(0.25))); //if sleep
 				break;}
-			case "DG1":
+			case "DG1": //self
 				{Collections.addAll(inst, 
 						Instruction.ChangeUserAttack(2),
 						Instruction.ChangeUserSpeed(2));
@@ -334,7 +335,7 @@ public class Moves{
 				break;}
 			case "ST3":
 				{Collections.addAll(inst, 
-						Instruction.ChangeUserDefence(2)); 
+						Instruction.ChangeUserDefence(2)); //self
 				break;}
 			case "FY1":
 				{Collections.addAll(inst, 
@@ -355,6 +356,7 @@ public class Moves{
 	
 	
 	public void UseOn(Pokemon enemy) {
+		UI.displayAttack(this);
 		for (int i=0;i < inst.size();i++) {
 			inst.get(i).accept(this, enemy);
 		}
@@ -365,6 +367,9 @@ public class Moves{
 	public int getPower() {
 		return power;
 	}
+	public Type getType() {
+		return type;
+	}
 	
 	public void changeAccuracy(int num) {
 		accuracy += num;
@@ -374,38 +379,39 @@ public class Moves{
 		this.power = power;
 	}
 
-	public int CalculateDmg(Pokemon enemy) {
-		return (int)(power * user.getCurrent_attack()/enemy.getCurrent_defense() * user.getStatus().getdmgMult());
+	public int CalculateDmg(Moves move,Pokemon enemy) {
+		return (int)(power * user.getCurrent_attack()/enemy.getCurrent_defense() * user.getStatus().getdmgMult() * Type.CheckTypeMult(move, enemy));
 	}
 	
 	public static int CalculateDmg(int power, Pokemon user, Pokemon enemy) {
 		return power * user.getCurrent_attack()/enemy.getCurrent_defense();
 	}
 	
-	private String CheckType(String moveID) {
+	private Type CheckType(String moveID) {
 		switch (moveID.toLowerCase().substring(0, 2)){
-		case "nm": return "Normal";
-		case "fr": return "Fire";
-		case "wt": return "Water";
-		case "gs": return "Grass";
-		case "et": return "Electric";
-		case "ic": return "Ice";
-		case "ft": return "Fighting";
-		case "ps": return "Poison";
-		case "gd": return "Ground";
-		case "fl": return "Flying";
-		case "pc": return "Psychic";
-		case "bg": return "Bug";
-		case "rc": return "Rock";
-		case "gh": return "Ghost";
-		case "dr": return "Dragon";
-		case "st": return "Steel";
-		case "fy": return "Fairy";
-		default: return "Error";
+		case "nm": return Type.Normal;
+		case "fr": return Type.Fire;
+		case "wt": return Type.Water;
+		case "gs": return Type.Grass;
+		case "et": return Type.Electric;
+		case "ic": return Type.Ice;
+		case "ft": return Type.Fighting;
+		case "ps": return Type.Poison;
+		case "gd": return Type.Ground;
+		case "fl": return Type.Flying;
+		case "pc": return Type.Psychic;
+		case "bg": return Type.Bug;
+		case "rc": return Type.Rock;
+		case "gh": return Type.Ghost;
+		case "dg": return Type.Dragon;
+		case "dr": return Type.Dark;
+		case "st": return Type.Steel;
+		case "fy": return Type.Fairy;
+		default: {
+			System.out.println("Type Error, Defaulting to Normal");
+			return Type.Normal;
 		}
-	}
-	public String toString() {
-		return String.format("Move ID: %s, Name: %s, Type: %s, Power: %d, Accuracy: %d,Priority: %d", move_ID, move_name, type, power, accuracy, priority);
+		}
 	}
 			
 	

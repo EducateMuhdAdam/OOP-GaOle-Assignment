@@ -16,7 +16,11 @@ public class UI {
         displaySeparator();
         System.out.printf("ID: %d\n", pokemon.getPokemon_id());
         System.out.printf("Name: %s\n", pokemon.getName());
-        System.out.printf("Type: %s\n", String.join(", ", pokemon.getType()));
+        System.out.printf("Type: ");
+        for (Type t : pokemon.getType()) {
+        	System.out.printf(" %s", t.name());
+        }
+        System.out.println();
         System.out.printf("Move 1: %s\n", pokemon.getMove1().getMove_name());
         System.out.printf("Move 2: %s\n", pokemon.getMove2().getMove_name());
         displaySeparator();
