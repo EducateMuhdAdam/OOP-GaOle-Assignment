@@ -1,22 +1,28 @@
+import java.io.*;
+import java.util.*;
+
 public class Pokemon {
     private int pokemon_id;
     private String name;
-    private String[] type;
+    private ArrayList<Type> type;
     private Team team;
+    private int grade;
+    
     private int hp_max;
     private int attack;
     private int defense;
-    private int current_hp;
+    private int speed;
     
+    private int current_hp;
     private int current_attack;
     private int current_defense;
-    private int max_speed;
     private int current_speed;
+    
     private Status status_effect;
     private Moves move1;
     private Moves move2;
 
-    public Pokemon(int pokemon_id, String name, String[] type, int attack, int current_attack, int defense, int max_speed, int hp_max, String moveID1, String moveID2) {
+    public Pokemon(int pokemon_id, String name, ArrayList<Type> type, int attack, int current_attack, int defense, int max_speed, int hp_max, String moveID1, String moveID2) {
         this.pokemon_id = pokemon_id;
         this.name = name;
         this.type = type;
@@ -25,7 +31,7 @@ public class Pokemon {
         this.current_attack = current_attack;
         this.defense = defense;
         this.current_defense = defense;
-        this.max_speed = max_speed;
+        this.speed = max_speed;
         this.current_speed = max_speed;
         this.hp_max = hp_max;
         move1 = new Moves(this, moveID1);
@@ -33,23 +39,70 @@ public class Pokemon {
 
     }
     
-    public Pokemon(int pokemon_id, String moveID1, String moveID2, Team team) {
-    	this.pokemon_id = pokemon_id;
-    	this.name = "Pikachu";
-    	this.current_hp = 100;
-        this.attack = 50;
-        this.current_attack = 50;
-        this.defense = 50;
-        this.current_defense = 50;
-        this.max_speed = 50;
-        this.current_speed = 50;
-        this.hp_max = 100;
+    public Pokemon(int pokemon_id, Team team){
+        this.pokemon_id = pokemon_id;
         this.team = team;
-        move1 = new Moves(this, moveID1);
-        move2 = new Moves(this, moveID2);
-        status_effect = new Status(this);
+        
+        ArrayList<String[]> pokemon_data = new ArrayList<String[]>();
+		
+		try {
+			File textfile = new File(System.getProperty("user.dir") + "\\src\\Set01.csv");
+			Scanner data = new Scanner(textfile);
+			while (data.hasNextLine()) {
+				pokemon_data.add(data.nextLine().split(",", 0));
+			}
+			data.close();
+		}
+		catch (FileNotFoundException e) {
+			System.out.println("Pokemon File Can't Be Read");
+		}
+        for (String[] pokemonlog : pokemon_data) {
+			if (pokemonlog[0].equals(Integer.toString(pokemon_id))) {
+				name = pokemonlog[1];
+				for (String t: pokemonlog[2].split("/", 0)) {
+					type.add(InitType(t));
+				}
+				grade = Integer.parseInt(pokemonlog[3]);
+				hp_max = Integer.parseInt(pokemonlog[4]);
+				current_hp = Integer.parseInt(pokemonlog[4]);
+				attack = Integer.parseInt(pokemonlog[5]);
+                defense = Integer.parseInt(pokemonlog[6]);
+                speed = Integer.parseInt(pokemonlog[7]);
+                move1 = new Moves(this, pokemonlog[8]); 
+			}
+		}
+        current_attack = 0;
+        current_defense = 0;
+        current_speed = 0;
+		
     }
-
+    
+    private Type InitType(String type) {
+		switch (type){
+		case "normal": return Type.Normal;
+		case "fire": return Type.Fire;
+		case "water": return Type.Water;
+		case "grass": return Type.Grass;
+		case "electric": return Type.Electric;
+		case "ice": return Type.Ice;
+		case "fighting": return Type.Fighting;
+		case "poison": return Type.Poison;
+		case "ground": return Type.Ground;
+		case "flying": return Type.Flying;
+		case "psychic": return Type.Psychic;
+		case "bug": return Type.Bug;
+		case "rock": return Type.Rock;
+		case "ghost": return Type.Ghost;
+		case "dragon": return Type.Dragon;
+		case "dark": return Type.Dark;
+		case "steel": return Type.Steel;
+		case "fairy": return Type.Fairy;
+		default: {
+			System.out.println("Type Error, Defaulting to Normal");
+			return Type.Normal;
+		}
+		}
+	}
 
 	
     public int getPokemon_id() {
@@ -58,7 +111,7 @@ public class Pokemon {
     public String getName() {
         return this.name;
     }
-    public String[] getType() {
+    public ArrayList<Type> getType() {
         return this.type;
     }
     public Team getTeam() {
@@ -80,7 +133,7 @@ public class Pokemon {
         return this.current_defense;
     }
     public int getMax_speed() {
-        return this.max_speed;
+        return this.speed;
     }
     public int getCurrent_speed() {
         return this.current_speed;
@@ -100,7 +153,7 @@ public class Pokemon {
     
 
 
-    public void setType(String[] type) {
+    public void setType(ArrayList<Type> type) {
         this.type = type;
     }
     public void setCurrent_hp(int current_hp) {
@@ -136,7 +189,7 @@ public class Pokemon {
 	public String toString() {
 		return "Pokemon [pokemon_id=" + pokemon_id + ", name=" + name + ", hp_max=" + hp_max + ", attack=" + attack
 				+ ", defense=" + defense + ", current_hp=" + current_hp + ", current_attack=" + current_attack
-				+ ", current_defense=" + current_defense + ", max_speed=" + max_speed + ", current_speed="
+				+ ", current_defense=" + current_defense + ", max_speed=" + speed + ", current_speed="
 				+ current_speed + "]";
 	}
     

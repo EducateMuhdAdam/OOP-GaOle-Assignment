@@ -7,7 +7,7 @@ public class Instruction {
 		return( 		
 				(move, enemy) -> {	
 					for (int i=0;i < hits;i++) {
-						enemy.takeDamage(move.CalculateDmg(enemy)); 
+						enemy.takeDamage(move.CalculateDmg(move, enemy)); 
 					}
 				}
 		);
@@ -16,7 +16,7 @@ public class Instruction {
 	static public BiConsumer<Moves, Pokemon> Attack() {
 		return( 		
 				(move, enemy) -> {	
-					enemy.takeDamage(move.CalculateDmg(enemy)); 
+					enemy.takeDamage(move.CalculateDmg(move, enemy)); 
 				}
 		);
 	}
@@ -53,6 +53,14 @@ public class Instruction {
 		);
 	}
 	
+	static public BiConsumer<Moves, Pokemon> ChangeUserDefence(int diff) {
+		return( 		
+				(move, enemy) -> {	
+					enemy.changeDefence(diff);
+						}
+		);
+	}
+	
 	static public BiConsumer<Moves, Pokemon> ChangeEnemyDefence(int diff) {
 		return( 		
 				(move, enemy) -> {	
@@ -70,14 +78,6 @@ public class Instruction {
 		);
 	}
 	
-	static public BiConsumer<Moves, Pokemon> ChangeUserDefence(int diff) {
-		return( 		
-				(move, enemy) -> {	
-					enemy.changeDefence(diff);
-						}
-		);
-	}
-	
 	static public BiConsumer<Moves, Pokemon> MultiAttack(int inc) { //Hits 2-5 times, 1/8 to hit 5 or 4 times, 3/8 to hit 3 or 2 times
 		return( 		
 				(move, enemy) -> {	
@@ -91,7 +91,7 @@ public class Instruction {
 							
 					for (int i=0;i < hits;i++) {
 						System.out.println("Bonk");
-						enemy.takeDamage(move.CalculateDmg(enemy));
+						enemy.takeDamage(move.CalculateDmg(move, enemy));
 						move.setPower(move.getPower() + inc);
 					}
 					move.setPower(initPower);
@@ -104,7 +104,7 @@ public class Instruction {
 	static public BiConsumer<Moves, Pokemon> Drain(double perc) {
 		return( 		
 				(move, enemy) -> {	
-					int damage = move.CalculateDmg(enemy);
+					int damage = move.CalculateDmg(move, enemy);
 					enemy.takeDamage(damage); 
 					move.user.setCurrent_hp(move.user.getCurrent_hp() + (int)(damage * perc));
 						}
