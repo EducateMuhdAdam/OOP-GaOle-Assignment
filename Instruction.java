@@ -90,10 +90,11 @@ public class Instruction {
 					else if (randNm >= 4) hits = 3;
 							
 					for (int i=0;i < hits;i++) {
-						System.out.println("Bonk");
+						UI.displayMessage("Hit!");
 						enemy.takeDamage(move.CalculateDmg(move, enemy));
 						move.setPower(move.getPower() + inc);
 					}
+					UI.displayMessage(String.format("It hit %d time(s)!", hits));
 					move.setPower(initPower);
 				}
 		);
@@ -107,6 +108,8 @@ public class Instruction {
 					int damage = move.CalculateDmg(move, enemy);
 					enemy.takeDamage(damage); 
 					move.user.setCurrent_hp(move.user.getCurrent_hp() + (int)(damage * perc));
+					UI.displayMessage("it drained some of its health!");
+					UI.displayHealthBar(move.user);
 						}
 		);
 	}
@@ -114,7 +117,6 @@ public class Instruction {
 	static public BiConsumer<Moves, Pokemon> SplitUserHealth(double perc) {
 		return( 		
 				(move, enemy) -> {	
-					System.out.println("OUCH!");
 					move.user.takeDamage((int)(move.user.getHp_max() * perc));
 				}
 		);
@@ -132,6 +134,8 @@ public class Instruction {
 		return( 		
 				(move, enemy) -> {	
 					move.user.setCurrent_hp(move.user.getHp_max());
+					UI.displayMessage("it restored it health to full!");
+					UI.displayHealthBar(move.user);
 				}
 		);
 	}

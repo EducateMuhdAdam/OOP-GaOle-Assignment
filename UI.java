@@ -28,7 +28,7 @@ public class UI {
     }    
     
     // Method to display health bar
-    private static void displayHealthBar(String label, int currentHP, int maxHP) {
+    public static void displayHealthBar(String label, int currentHP, int maxHP) {
         int barLength = 20; // Fixed length for the bar
         int filledLength = (int) ((currentHP / (double) maxHP) * barLength);
         StringBuilder bar = new StringBuilder();
@@ -58,6 +58,37 @@ public class UI {
         }
         System.out.printf("%s HP: [%s] %d/%d\n", label, bar.toString(), currentHP, maxHP);
     }
+    
+    public static void displayHealthBar(Pokemon poke) {
+        int barLength = 20; // Fixed length for the bar
+        int filledLength = (int) ((poke.getCurrent_hp() / (double) poke.getHp_max()) * barLength);
+        StringBuilder bar = new StringBuilder();
+
+        String greenColor = "\u001B[32m"; // Green color for high HP
+        String orangeColor = "\u001B[33m"; // Orange color for medium HP
+        String redColor = "\u001B[31m"; // Red color for low HP
+        String whiteColor = "\u001B[37m"; // White color for empty part
+        String resetColor = "\u001B[0m"; // Reset color
+
+        String color;
+        if (poke.getCurrent_hp() > poke.getHp_max() * 0.55) {
+            color = greenColor;
+        } else if (poke.getCurrent_hp() > poke.getHp_max() * 0.20) {
+            color = orangeColor;
+        } else {
+            color = redColor;
+
+        }
+
+        for (int i = 0; i < barLength; i++) {
+            if (i < filledLength) {
+                bar.append(color).append("|").append(resetColor);
+            } else {
+                bar.append(whiteColor).append("-").append(resetColor);
+            }
+        }
+        System.out.printf("%s %s HP: [%s] %d/%d\n", poke.getTeam(), poke.getName(), bar.toString(), poke.getCurrent_hp(), poke.getHp_max());
+    }
 
     public static String getPlayerInput(String prompt) {
         System.out.print(prompt);
@@ -66,6 +97,11 @@ public class UI {
 
     public static void displayMessage(String message) {
         System.out.println(message);
+    }
+    
+    public static void displayDamage(Pokemon poke, int dmg) {
+        System.out.printf("%s %s took %d damage!", poke.getTeam(), poke.getName(), dmg);
+        System.out.println();
     }
     
 
