@@ -14,34 +14,18 @@ public class Pokemon {
     private int speed;
     
     private int current_hp;
-    private int current_attack;
-    private int current_defense;
-    private int current_speed;
+    private int stage_attack;
+    private int stage_defense;
+    private int stage_speed;
     
     private Status status_effect;
     private Moves move1;
     private Moves move2;
-
-    public Pokemon(int pokemon_id, String name, ArrayList<Type> type, int attack, int current_attack, int defense, int max_speed, int hp_max, String moveID1, String moveID2) {
-        this.pokemon_id = pokemon_id;
-        this.name = name;
-        this.type = type;
-        this.current_hp = hp_max;
-        this.attack = attack;
-        this.current_attack = current_attack;
-        this.defense = defense;
-        this.current_defense = defense;
-        this.speed = max_speed;
-        this.current_speed = max_speed;
-        this.hp_max = hp_max;
-        move1 = new Moves(this, moveID1);
-        move2 = new Moves(this, moveID2);
-
-    }
     
     public Pokemon(int pokemon_id, Team team){
         this.pokemon_id = pokemon_id;
         this.team = team;
+        this.status_effect = new Status(this);
         
         ArrayList<String[]> pokemon_data = new ArrayList<String[]>();
 		
@@ -59,6 +43,7 @@ public class Pokemon {
         for (String[] pokemonlog : pokemon_data) {
 			if (pokemonlog[0].equals(Integer.toString(pokemon_id))) {
 				name = pokemonlog[1];
+				type = new ArrayList<Type>();
 				for (String t: pokemonlog[2].split("/", 0)) {
 					type.add(InitType(t));
 				}
@@ -71,9 +56,9 @@ public class Pokemon {
                 move1 = new Moves(this, pokemonlog[8]); 
 			}
 		}
-        current_attack = 0;
-        current_defense = 0;
-        current_speed = 0;
+        stage_attack = 0;
+        stage_defense = 0;
+        stage_speed = 0;
 		
     }
     
@@ -121,7 +106,7 @@ public class Pokemon {
         return this.current_hp;
     }
     public int getCurrent_attack() {
-    	return this.current_attack;
+    	return attack;
     }
     public int getAttack() {
         return this.attack;
@@ -130,13 +115,13 @@ public class Pokemon {
         return this.defense;
     }
     public int getCurrent_defense() {
-        return this.current_defense;
+        return this.defense;
     }
     public int getMax_speed() {
         return this.speed;
     }
     public int getCurrent_speed() {
-        return this.current_speed;
+        return this.speed;
     }
     public int getHp_max() {
         return this.hp_max;
@@ -161,23 +146,23 @@ public class Pokemon {
     }
 
 
-    public void setCurrent_defense(int current_defense) {
-        this.current_defense = current_defense;
+    public void setCurrent_defense(int stage_defense) {
+        this.stage_defense = stage_defense;
     }
 
-    public void setCurrent_speed(int current_speed) {
-        this.current_speed = current_speed;
+    public void setCurrent_speed(int stage_speed) {
+        this.stage_speed = stage_speed;
     }  
     public void changeSpeed(int speed) {
-    	current_speed += speed;
+    	stage_speed += speed;
     }
     
     public void changeAttack(int atk) {
-    	current_attack += atk;
+    	stage_attack += atk;
     }
     
     public void changeDefence(int def) {
-    	current_attack += def;
+    	stage_attack += def;
     }
     
     public void takeDamage(int damage) {
@@ -188,9 +173,9 @@ public class Pokemon {
 	@Override
 	public String toString() {
 		return "Pokemon [pokemon_id=" + pokemon_id + ", name=" + name + ", hp_max=" + hp_max + ", attack=" + attack
-				+ ", defense=" + defense + ", current_hp=" + current_hp + ", current_attack=" + current_attack
-				+ ", current_defense=" + current_defense + ", max_speed=" + speed + ", current_speed="
-				+ current_speed + "]";
+				+ ", defense=" + defense + ", current_hp=" + current_hp + ", current_attack=" + stage_attack
+				+ ", current_defense=" + stage_defense + ", max_speed=" + speed + ", current_speed="
+				+ stage_speed + "]";
 	}
     
 
