@@ -1,31 +1,63 @@
-ID and Name,Name,Type,Grade,HP,Attack,Defense,Speed,Move
-28,Farfetch'd,Normal/Flying, 1,58,36,31,33,Aerial Ace
-25,Dunsparce,Normal, 1,82,38,38,26,Headbutt
-23,Greninja,Water/Dark, 3,97,73,53,92,Night Slash
-22,Frogadier,Water, 2,72,28,36,63,Water Pulse
-17,Fennekin,Fire, 1,53,28,24,33,Ember
-14,Quilladin,Grass, 2,76,51,62,39,Needle Arm
-8,Charizard,Fire/Flying, 4,117,28,70,89,Flamethrower
-12,Blastoise,Water, 4,118,28,89,70,Hydro Pump
-3,Venusaur,Grass/Poison, 3,103,28,64,62,Giga Drain
-27,Stunfisk,Ground/Electric, 1,86,28,45,20,Mud-Slap
-29,Dedenne,Electric/Fairy, 1,66,32,32,53,Nuzzle
-24,Greninja,Water/Dark, 4,112,84,61,107,Water Shuriken
-21,Froakie,Water, 1,53,28,24,39,Bubble
-26,Pachirisu,Electric, 1,62,26,38,50,Spark
-19,Delphox,Fire/Psychic, 3,100,28,56,79,Flamethrower
-18,Braixen,Fire, 2,75,40,39,48,Flame Charge
-20,Delphox,Fire/Psychic, 4,115,28,65,92,Psychic
-16,Chesnaught,Grass/Fighting, 4,125,94,107,58,Hammer Arm
-15,Chesnaught,Grass/Fighting, 3,109,82,92,51,Seed Bomb
-13,Chespin,Grass, 1,60,34,36,23,Vine Whip
-10,Wartortle,Water, 2,75,28,53,39,Water Pulse
-11,Blastoise,Water, 3,102,64,77,61,Aqua Tail
-4,Venusaur,Grass/Poison, 4,119,28,74,72,Leaf Storm
-5,Charmander,Fire, 1,52,28,25,36,Ember
-6,Charmeleon,Fire, 2,74,43,39,53,Fire Fang
-7,Charizard,Fire/Flying, 3,102,28,61,77,Flame Burst
-9,Squirtle,Water, 1,55,28,36,25,Water Gun
-1,Bulbasaur,Grass/Poison, 1,55,28,28,26,Vine Whip
-2,Ivysaur,Grass/Poison, 2,76,42,42,41,Razor Leaf
-,,,Grade 2,,,,,
+,,,,,,ID and Name,Name,Type,Grade,HP,Attack,Defense,Speed,Move
+NM1,Protect,0,0,self,4,28,Farfetch'd,Normal/Flying,1,58,36,31,33,Aerial Ace
+NM2,Tackle,40,100,target,0,25,Dunsparce,Normal,1,82,38,38,26,Headbutt
+NM3,Quick Attack,40,100,target,1,23,Greninja,Water/Dark,3,97,73,53,92,Night Slash
+NM4,Headbutt,70,100,target,0,22,Frogadier,Water,2,72,28,36,63,Water Pulse
+FR1,Flamethrower,90,100,target,0,17,Fennekin,Fire,1,53,28,24,33,Ember
+FR2,Flame Charge,50,100,target,0,14,Quilladin,Grass,2,76,51,62,39,Needle Arm
+FR3,Ember,40,100,target,0,8,Charizard,Fire/Flying,4,117,28,70,89,Flamethrower
+FR4,Fire Fang,65,95,target,0,12,Blastoise,Water,4,118,28,89,70,Hydro Pump
+FR5,Flame Burst,70,100,target,0,3,Venusaur,Grass/Poison,3,103,28,64,62,Giga Drain
+WT1,Hyro Pump,110,80,target,0,27,Stunfisk,Ground/Electric,1,86,28,45,20,Mud-Slap
+WT2,Hydro Canon,150,90,target,0,29,Dedenne,Electric/Fairy,1,66,32,32,53,Nuzzle
+WT3,Water Pulse,60,100,target,0,24,Greninja,Water/Dark,4,112,84,61,107,Water Shuriken
+WT4,Water Shuriken,15,100,target,1,21,Froakie,Water,1,53,28,24,39,Bubble
+WT5,Bubble,40,100,target,0,26,Pachirisu,Electric,1,62,26,38,50,Spark
+WT6,Aqua Tail,90,90,target,0,19,Delphox,Fire/Psychic,3,100,28,56,79,Flamethrower
+WT7,Water Gun,40,100,target,0,18,Braixen,Fire,2,75,40,39,48,Flame Charge
+GS1,Giga Drain,75,100,target,0,20,Delphox,Fire/Psychic,4,115,28,65,92,Psychic
+GS2,Razor Leaf,55,95,target,0,16,Chesnaught,Grass/Fighting,4,125,94,107,58,Hammer Arm
+GS3,Needle Arm,60,100,target,0,15,Chesnaught,Grass/Fighting,3,109,82,92,51,Seed Bomb
+GS4,Seed Bomb,80,100,target,0,13,Chespin,Grass,1,60,34,36,23,Vine Whip
+GS5,Vine Whip,45,100,target,0,10,Wartortle,Water,2,75,28,53,39,Water Pulse
+GS6,Leaf Storm,130,90,target,0,11,Blastoise,Water,3,102,64,77,61,Aqua Tail
+ET1,Thunderbolt,90,100,target,0,4,Venusaur,Grass/Poison,4,119,28,74,72,Leaf Storm
+ET2,Nuzzle,20,100,target,0,5,Charmander,Fire,1,52,28,25,36,Ember
+ET3,Spark,65,100,target,0,6,Charmeleon,Fire,2,74,43,39,53,Fire Fang
+IC1,Ice Punch,75,100,target,0,7,Charizard,Fire/Flying,3,102,28,61,77,Flame Burst
+IC2,Ice Fang,65,95,target,0,9,Squirtle,Water,1,55,28,36,25,Water Gun
+FT1,Low Sweep,65,100,target,0,1,Bulbasaur,Grass/Poison,1,55,28,28,26,Vine Whip
+FT2,Thunderous Kick,90,100,target,0,2,Ivysaur,Grass/Poison,2,76,42,42,41,Razor Leaf
+FT3,Hammer Arm,100,90,target,0,,,,,,,,,
+FT4,High Jump Kick,130,90,target,0,,,,,,,,,
+PS1,Sludge Bomb,90,100,target,0,,,,,,,,,
+PS2,Poison Fang,50,100,target,0,,,,,,,,,
+GD1,Earthquake,100,100,target,0,,,,,,,,,
+GD2,Mud Shot,55,95,target,0,,,,,,,,,
+GD3,Mud-Slap,20,100,target,0,,,,,,,,,
+FL1,Tailwind,0,0,self,0,,,,,,,,,
+FL2,Fly,90,95,target,0,,,,,,,,,
+FL3,Wing Attack,60,100,target,0,,,,,,,,,
+FL4,Aerial Ace,60,999,target,0,,,,,,,,,
+PC1,Psybeam,65,100,target,0,,,,,,,,,
+PC2,Rest,0,0,self,0,,,,,,,,,
+PC3,Hypnosis,0,60,target,0,,,,,,,,,
+PC4,Psychic,90,100,target,0,,,,,,,,,
+BG1,Leech Life,80,100,target,0,,,,,,,,,
+BG2,Signal Beam,75,100,target,0,,,,,,,,,
+BG3,Twineedle,25,100,target,0,,,,,,,,,
+RC1,Rock Slide,75,90,target,0,,,,,,,,,
+RC2,Diamond Storm,100,95,target,0,,,,,,,,,
+GH1,Shadow Bone,85,100,target,0,,,,,,,,,
+GH2,Nightmare,0,100,target,0,,,,,,,,,
+DG1,Dragon Dance,0,0,self,0,,,,,,,,,
+DG2,Dragon Pulse,85,100,target,0,,,,,,,,,
+DR1,Bite,60,100,target,0,,,,,,,,,
+DR2,Payback,50,100,target,0,,,,,,,,,
+DR3,Night Slash,70,100,target,0,,,,,,,,,
+ST1,Iron Tail,100,75,target,0,,,,,,,,,
+ST2,Metal Claw,50,95,target,0,,,,,,,,,
+ST3,Iron Defence,0,0,self,0,,,,,,,,,
+FY1,Baby-Doll Eyes,0,100,target,1,,,,,,,,,
+FY2,Charm,0,100,target,0,,,,,,,,,
+FY3,Draining Kiss,50,100,target,0,,,,,,,,,
