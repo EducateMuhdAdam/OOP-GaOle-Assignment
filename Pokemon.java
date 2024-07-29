@@ -2,6 +2,7 @@ public class Pokemon {
     private int pokemon_id;
     private String name;
     private String[] type;
+    private Team team;
     private int hp_max;
     private int attack;
     private int defense;
@@ -27,14 +28,14 @@ public class Pokemon {
         this.max_speed = max_speed;
         this.current_speed = max_speed;
         this.hp_max = hp_max;
-        move1 = new Moves(moveID1);
-        move2 = new Moves(moveID2);
+        move1 = new Moves(this, moveID1);
+        move2 = new Moves(this, moveID2);
 
     }
     
-    public Pokemon(int pokemon_id, String moveID) {
+    public Pokemon(int pokemon_id, String moveID1, String moveID2, Team team) {
     	this.pokemon_id = pokemon_id;
-    	this.name = "Dummy Pokemon";
+    	this.name = "Pikachu";
     	this.current_hp = 100;
         this.attack = 50;
         this.current_attack = 50;
@@ -43,10 +44,14 @@ public class Pokemon {
         this.max_speed = 50;
         this.current_speed = 50;
         this.hp_max = 100;
-        move1 = new Moves(this, moveID);
+        this.team = team;
+        move1 = new Moves(this, moveID1);
+        move2 = new Moves(this, moveID2);
+        status_effect = new Status(this);
     }
-    
 
+
+	
     public int getPokemon_id() {
         return this.pokemon_id;
     }
@@ -55,6 +60,9 @@ public class Pokemon {
     }
     public String[] getType() {
         return this.type;
+    }
+    public Team getTeam() {
+        return this.team;
     }
     public int getCurrent_hp() {
         return this.current_hp;
@@ -80,9 +88,6 @@ public class Pokemon {
     public int getHp_max() {
         return this.hp_max;
     }
-    public String getStatus_effect() {
-        return this.status_effect;
-    }
     public Moves getMove1() {
         return move1;
     }
@@ -90,8 +95,9 @@ public class Pokemon {
         return move2;
     }
     public Status getStatus() {
-    	return stat;
+    	return status_effect;
     }
+    
 
 
     public void setType(String[] type) {
@@ -136,3 +142,4 @@ public class Pokemon {
     
 
 }
+
