@@ -78,7 +78,7 @@ public class Pokemon {
     }
     
     private Type InitType(String type) {
-		switch (type){
+		switch (type.toLowerCase()){
 		case "normal": return Type.Normal;
 		case "fire": return Type.Fire;
 		case "water": return Type.Water;
