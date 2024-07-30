@@ -9,6 +9,13 @@ public class UI {
     private static void displaySeparator() {
         System.out.println("====================================================");
     }
+    
+    // Method to clear the terminal screen
+    public static void clearTerminal() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+    
     //After you catch a pokemon, you can display this
     public static void displayPokemonDetails(Pokemon pokemon) {
         displaySeparator();
