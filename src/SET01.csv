@@ -18,7 +18,7 @@ ID and Name,Name,Type,Grade,HP,Attack,Defense,Speed,Move1,Move2
 20,Delphox,Fire/Psychic,4,115,28,65,92,PC4,NM1
 16,Chesnaught,Grass/Fighting,4,125,94,107,58,FT3,NM3
 15,Chesnaught,Grass/Fighting,3,109,82,92,51,GS4,NM1
-13,Chespin,Grass,1,60,34,36,23,GS5,NM14
+13,Chespin,Grass,1,60,34,36,23,GS5,NM1
 10,Wartortle,Water,2,75,28,53,39,WT3,NM2
 11,Blastoise,Water,3,102,64,77,61,WT6,NM1
 4,Venusaur,Grass/Poison,4,119,28,74,72,GS6,NM3
