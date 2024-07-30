@@ -72,7 +72,8 @@ public class Pokemon {
 				attack = Integer.parseInt(pokemonlog[5]);
                 defense = Integer.parseInt(pokemonlog[6]);
                 speed = Integer.parseInt(pokemonlog[7]);
-                move1 = new Moves(this, pokemonlog[8]); 
+                move1 = new Moves(this, pokemonlog[8]);
+				move2 = new Moves(this, pokemonlog[9]);
 			}
 		}
         stage_attack = 0;
