@@ -1,4 +1,3 @@
-package pokemon;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,27 +5,31 @@ import java.time.Duration;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
+import java.io.FileNotFoundException;
+import java.util.Collections;
+
 
 
 		public class gameMaster{
 		
-		public static final ArrayList<Integer> acceptedOptions = new ArrayList<>(Arrays.asList(1, 2, 3));
+		//global array of integer to be used by methods menu and playchoice
+		private static final ArrayList<Integer> acceptedOptions = new ArrayList<>(Arrays.asList(1, 2, 3));
 		private enum STATE{
 			MENU,
 			GAME
 		};
 		
-		private STATE state = STATE.MENU;
+		private static STATE state = STATE.MENU;
 		
 		
+		//this is a Interface Method therefore it should be public
 		public static void menu() {
 		
 			
 		Scanner input = new Scanner (System.in);
 		int userChoice = 0;
-		
-		//Player player = new Player("");
-		//Game game = new Game(player);
+
 		
 				
 		while(true) {
@@ -61,7 +64,8 @@ import java.util.Arrays;
             }
 		}
 	}
-		
+	
+	//implement the functionality of menu method therefore it is private
 	private static void playChoice(Scanner input) {
 		
 		while (true){
@@ -75,7 +79,11 @@ import java.util.Arrays;
                 if (acceptedOptions.contains(gameMode)) {
                 	switch (gameMode) {
                     case 1:
+                    	state = STATE.GAME;
                         LocalDateTime start = LocalDateTime.now();
+                        generatePokemon();
+                        break;
+                        
                         //format the currentTime object to a readable string
             			//DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
             			//LocalDateTime end = LocalDateTime.now();
@@ -83,15 +91,16 @@ import java.util.Arrays;
                         //game.generateWildPokemon();
                         //game.catchPokemon();
                         //game.startBattle();
-                        ;
+                        
                     case 2:
-                        //game.generateWildPokemon();
-                        //game.catchPokemon();
+                    	generatePokemon();
                         break;
+                        
                     case 3:
                     	return;
                     }
-                } else {
+                } 
+                else {
                     System.out.println("Please select a valid option (1 to 3).");
                     continue;
                 }
@@ -104,6 +113,7 @@ import java.util.Arrays;
 		
 	}
 	
+	//this is a helper method that implement the functionality of menu method therefore it should be private for encapsulation
 	private static void menuGenerator(String [] options) {
 		int max = 0;
 		for (int i = 0; i < options.length; i++) {
@@ -128,11 +138,71 @@ import java.util.Arrays;
 		}
 	}
 	
+	private static void generatePokemon() {
 	
-	private static void generatePokemon(Pokemon number) {
-		
+		 ArrayList<Integer> indices = new ArrayList<>();
+		 ArrayList<Pokemon> generatedPokemons = new ArrayList<>();
+	        for (int i = 0; i < 28; i++) {
+	            indices.add(i);
+	        }
+
+	        Collections.shuffle(indices);
+	        for (int i = 0; i < 3; i ++) {
+		        int index = indices.get(i);
+		        Pokemon pokemon = new Pokemon(index, Team.Ally);
+		        generatedPokemons.add(pokemon);
+		        UI.displayPokemonDetails(pokemon);
+	        }
+	        
+	        System.out.println("Choose your Pokémon by entering its name: ");
+	        Scanner input = new Scanner (System.in);
+			String chosenPokemonName = input.nextLine().trim();
+
+	        Pokemon chosenPokemon = null;
+	        while (true) {
+	            boolean validChoice = false;
+	            for (Pokemon pokemon : generatedPokemons) {
+	                if (pokemon.getName().equalsIgnoreCase(chosenPokemonName)) {
+	                    chosenPokemon = pokemon;
+	                    UI.displayMessage("You have chosen " + chosenPokemon.getName());
+	                    validChoice = true;
+	                    break;
+	                }
+	            }
+	            if (validChoice) {
+	                break;
+	            } 
+	            
+	            else {
+	                System.out.println("Invalid choice. No Pokémon with the name " + chosenPokemonName + " found.");
+	                System.out.println("Please choose a valid Pokémon by entering its name: ");
+	                chosenPokemonName = input.nextLine().trim();
+	            }
+	            
+	        
+	            
+	        	for (int i = 0; i < 2; i++) {
+		        	int index = indices.get(i);
+		        	Pokemon wildPokemon = new Pokemon(index, Team.Enemy); 
+		        }
+	        	input.close();
+	        }
+	      
+	   
 	}
+
+}
+	
+	
 	
 	
 	//for game mechanics code remember to add if(State == STATE.GAME)
-}	
+	
+	
+	
+	
+	
+
+
+
+
