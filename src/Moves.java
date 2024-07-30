@@ -1,3 +1,5 @@
+package src;
+
 import java.util.*;
 import java.util.function.*;
 import java.io.*;
@@ -357,7 +359,7 @@ public class Moves{
 	
 	public void UseOn(Pokemon enemy) {
 		UI.displayAttack(this);
-		if (this.getCurrentAccuracy() >= (Math.random()* 100))
+		if (this.getCurrentAccuracy() >= (Math.random() * 100) + 1)
 			for (int i=0;i < inst.size();i++) {
 				inst.get(i).accept(this, enemy);
 			}
@@ -384,6 +386,14 @@ public class Moves{
 
 	public void setPriority(int priority) {
 		this.priority = priority;
+	}
+
+	public String getMove_action() {
+		return move_action;
+	}
+
+	public void setMove_action(String move_action) {
+		this.move_action = move_action;
 	}
 
 	public void setPower(int power) {

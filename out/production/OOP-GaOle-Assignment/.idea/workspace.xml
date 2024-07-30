@@ -4,29 +4,61 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/gameMaster.java" beforeDir="false" afterPath="$PROJECT_DIR$/gameMaster.java" afterDir="false" />
+    <list default="true" id="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" name="Changes" comment="changes">
+      <change beforePath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Moves.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moves.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameMaster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameMaster.java" afterDir="false" />
+    </list>
+    <list id="76011cad-48a0-4586-818e-74e958c6ef44" name="Changes by Beks" comment="">
+      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameMaster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameMaster.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "jinhusky"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;jinhusky&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/EducateMuhdAdam/OOP-GaOle-Assignment.git",
-    "accountId": "4e0b83a7-9dd1-4653-879c-04a344f63abc"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/EducateMuhdAdam/OOP-GaOle-Assignment.git&quot;,
+    &quot;accountId&quot;: &quot;4e0b83a7-9dd1-4653-879c-04a344f63abc&quot;
   }
-}]]></component>
+}</component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/gameMaster.java">
+      <ranges>
+        <range start1="3" end1="7" start2="3" end2="4" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="19" end1="19" start2="16" end2="17" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="20" end1="20" start2="18" end2="22" changelist="76011cad-48a0-4586-818e-74e958c6ef44" />
+        <range start1="23" end1="24" start2="25" end2="25" changelist="76011cad-48a0-4586-818e-74e958c6ef44" />
+        <range start1="67" end1="67" start2="68" end2="69" changelist="76011cad-48a0-4586-818e-74e958c6ef44" />
+        <range start1="69" end1="69" start2="71" end2="72" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="176" end1="177" start2="179" end2="181" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="179" end1="179" start2="183" end2="203" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="181" end1="181" start2="205" end2="207" changelist="76011cad-48a0-4586-818e-74e958c6ef44" />
+      </ranges>
+    </file>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -38,6 +70,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.gameTest.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
@@ -46,10 +79,18 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\User\IdeaProjects\OOP-GaOle-Assignment\src" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -67,11 +108,55 @@
       <option name="presentableId" value="Default" />
       <updated>1722336742633</updated>
       <workItem from="1722336743685" duration="1155000" />
-      <workItem from="1722338077511" duration="1081000" />
+      <workItem from="1722338077511" duration="3842000" />
+      <workItem from="1722342533191" duration="12330000" />
     </task>
+    <task id="LOCAL-00001" summary="changes">
+      <option name="closed" value="true" />
+      <created>1722341827127</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1722341827127</updated>
+    </task>
+    <task id="LOCAL-00002" summary="changes">
+      <option name="closed" value="true" />
+      <created>1722351568781</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1722351568781</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="changes" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/gameMaster.java</url>
+          <line>207</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

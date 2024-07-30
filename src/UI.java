@@ -1,5 +1,6 @@
 package src;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,34 +8,46 @@ public class UI {
     private static Scanner scanner = new Scanner(System.in);;
 
 
+    public static final String RESET = "\u001B[0m";
+    public static final String BLACK = "\u001B[30m";
+    public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String YELLOW = "\u001B[33m";
+    public static final String BLUE = "\u001B[34m";
+    public static final String PURPLE = "\u001B[35m";
+    public static final String CYAN = "\u001B[36m";
+    public static final String WHITE = "\u001B[37m";
+
+
+
     private static void displaySeparator() {
-        System.out.println("====================================================");
+        System.out.println(UI.colorFont("====================================================", UI.YELLOW));
     }
-    
+
     // Method to clear the terminal screen
     public static void clearTerminal() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
-    
+
     //After you catch a pokemon, you can display this
     public static void displayPokemonDetails(Pokemon pokemon) {
         displaySeparator();
-        System.out.println("                   Pokémon Details                  ");
+        System.out.println(UI.colorFont("                   Pokémon Details                  ", UI.CYAN));
         displaySeparator();
         System.out.printf("ID: %d\n", pokemon.getPokemon_id());
         System.out.printf("Name: %s\n", pokemon.getName());
         System.out.printf("Type: ");
         for (Type t : pokemon.getType()) {
-        	System.out.printf(" %s", t.name());
+            System.out.printf(" %s", t.name());
         }
         System.out.println();
         System.out.printf("Move 1: %s\n", pokemon.getMove1().getMove_name());
         System.out.printf("Move 2: %s\n", pokemon.getMove2().getMove_name());
         displaySeparator();
         System.out.println();
-    }    
-    
+    }
+
     // Method to display health bar
     public static void displayHealthBar(String label, int currentHP, int maxHP) {
         int barLength = 20; // Fixed length for the bar
@@ -66,7 +79,7 @@ public class UI {
         }
         System.out.printf("%s HP: [%s] %d/%d\n", label, bar.toString(), currentHP, maxHP);
     }
-    
+
     public static void displayHealthBar(Pokemon poke) {
         int barLength = 20; // Fixed length for the bar
         int filledLength = (int) ((poke.getCurrent_hp() / (double) poke.getHp_max()) * barLength);
@@ -106,19 +119,19 @@ public class UI {
     public static void displayMessage(String message) {
         System.out.println(message);
     }
-    
+
     public static void displayDamage(Pokemon poke, int dmg) {
-        System.out.printf("%s %s took %d damage!", poke.getTeam(), poke.getName(), dmg);
+        System.out.printf(UI.colorFont(String.format("%s %s took %d damage!", poke.getTeam(), poke.getName(), dmg), UI.RED));
         System.out.println();
     }
-    
+
 
     // Method to display the game start message
     public static void displayGameStart() {
         displayMessage("Welcome to the Pokémon Ga-Ole Game!");
         System.out.println();
     }
-    
+
     public static void displayGameSetup() {
         displayMessage("Setting up the game...");
         System.out.println();
@@ -155,29 +168,53 @@ public class UI {
 
     // New methods for battle messages
     public static void displayBattleStart() {
-        displayMessage("Battle Start! Get ready to fight!");
+        displayMessage(UI.colorFont("Battle Start! Get ready to fight!", UI.CYAN));
         System.out.println();
     }
-    
+
     // Method to display moves and get user choice
     public static Moves displaySelectMove(Pokemon pokemon) {
         displaySeparator();
-        displaySelectMove();
+        displayMessage(UI.colorFont(String.format("Select a move for your Pokémon: " + pokemon.getName()),UI.GREEN));
         System.out.printf("1. %s%n", pokemon.getMove1().getMove_name());
         System.out.printf("2. %s%n", pokemon.getMove2().getMove_name());
         displaySeparator();
-        System.out.print("Enter the number of the move you want to use: ");
+        System.out.print(UI.colorFont("Enter the number of the move you want to use: ", UI.GREEN));
         int choice = scanner.nextInt();
         if (choice == 1) {
             return pokemon.getMove1();
         } else if (choice == 2) {
             return pokemon.getMove2();
         } else {
-            System.out.println("Invalid choice. Please select 1 or 2.");
+            System.out.println(UI.colorFont("Invalid choice. Please select 1 or 2.", UI.RED));
             return displaySelectMove(pokemon);
         }
     }
-
+    public static Moves displaySelectMove(Pokemon pokemon, int choice) {
+        if (choice == 1) {
+            return pokemon.getMove1();
+        } else if (choice == 2) {
+            return pokemon.getMove2();
+        } else {
+            System.out.println(UI.colorFont("Invalid choice. Defaulting to Move 1", UI.RED));
+            return pokemon.getMove1();
+        }
+    }
+    public static void DisplayTeam(ArrayList<Pokemon> poketeam){
+        String indent = "   ";
+        for (Pokemon poke: poketeam){
+            System.out.printf(indent);
+            System.out.println(poke.getName());
+            System.out.printf(indent);
+            displayHealthBar(poke);
+            indent += indent;
+        }
+    }
+    public static void DisplayBattlePokemon(ArrayList<Pokemon> ally,ArrayList<Pokemon> enemy){
+        DisplayTeam(ally);
+        System.out.println("\n                  VS\n");
+        DisplayTeam(enemy);
+    }
 
     public static void displayFullAttack(Moves move, Pokemon opponentPokemon) {
         displayAttack(move);
@@ -187,7 +224,7 @@ public class UI {
     }
 
     public static void displayAttack(Moves move) {
-        displayMessage(move.user.getTeam() + " " + move.user.getName() + " uses " + move.getMove_name() + "!");
+        displayMessage(UI.colorFont(String.format(move.user.getTeam() + " " + move.user.getName() + " uses " + move.getMove_name() + "!"),UI.YELLOW));
         System.out.println();
     }
 
@@ -197,9 +234,10 @@ public class UI {
     }
 
     public static void displaySelectMove() {
-        displayMessage("Select a move for your Pokémon.");
+        displayMessage("Select a move for your Pokémon: ");
         System.out.println();
     }
+
 
     public static void displayOpponentTurn() {
         displayMessage("Opponent's turn. Please wait...");
@@ -218,10 +256,10 @@ public class UI {
 
 
     public static void displayStatusChange(Pokemon poke, String status) {
-        displayMessage(poke.getTeam() + " " + poke.getName() + " is now " + status + "!");
+        displayMessage(UI.colorFont(String.format(poke.getTeam() + " " + poke.getName() + " is now " + status + "!"), UI.PURPLE));
         System.out.println();
     }
-    
+
     public static void displayAction(Pokemon poke, String action) {
         displayMessage(poke.getTeam() + " " + poke.getName() + " " + action + "!");
         System.out.println();
@@ -229,16 +267,16 @@ public class UI {
 
     public static void displayPokemonDefeated(Pokemon pokemon) {
         displaySeparator();
-        System.out.printf("%s %s is defeated!%n", pokemon.getTeam(), pokemon.getName());
+        System.out.printf(UI.colorFont(String.format("%s %s is defeated!%n", pokemon.getTeam(), pokemon.getName()), UI.RED));
         displaySeparator();
     }
     public static void displayVictory() {
-        displayMessage("You won the battle!");
+        displayMessage(UI.colorFont("You won the battle!", UI.GREEN));
         System.out.println();
     }
 
     public static void displayDefeat() {
-        displayMessage("You lost the battle. Better luck next time.");
+        displayMessage(UI.colorFont("You lost the battle. Better luck next time.", UI.RED));
         System.out.println();
     }
 
@@ -253,6 +291,9 @@ public class UI {
         displayMessage("Thank you for playing the Pokémon Ga-Ole Game!");
         System.out.println();
     }
+
+    public static String colorFont(String text, String color){
+        return color + text + RESET;
+    }
 }
 
-    

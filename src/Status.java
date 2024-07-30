@@ -138,6 +138,13 @@ public class Status {
 			s.Endstep();
 		}
 	}
+
+	public boolean CheckPrevention() {
+		for (Status s: status_list) {
+			if (s.PreventAttack()) return true;
+		}
+		return false;
+	}
 	
 	public ArrayList<Status> getStatusList() {
 		return status_list;
@@ -148,9 +155,10 @@ public class Status {
 
 // ---------------------- Child Classes ------------------------------------
 	class Burn extends Status{
-
+		int endon;
 		public Burn(Pokemon user) {
 			super(user);
+			endon = gameMaster.getTurnCounter() + 4;
 			UI.displayStatusChange(user, "Burning");
 		}
 		@Override
@@ -166,8 +174,10 @@ public class Status {
 	}
 	
 	class Poison extends Status{
+		int endon;
 		public Poison(Pokemon user) {
 			super(user);
+			endon = gameMaster.getTurnCounter() + 4;
 			UI.displayStatusChange(user, "Poisoned");
 		}
 		@Override
@@ -178,10 +188,12 @@ public class Status {
 	}
 	
 	class BPoison extends Status{
+		int endon;
 		int inc;
 		public BPoison(Pokemon user) {
 			super(user);
 			inc = 0;
+			endon = gameMaster.getTurnCounter() + 4;
 			UI.displayStatusChange(user, "Badly Poisoned");
 		}
 		@Override
@@ -193,8 +205,10 @@ public class Status {
 	}
 	
 	class Confuse extends Status{
+		int endon;
 		public Confuse(Pokemon user) {
 			super(user);
+			endon = gameMaster.getTurnCounter() + 4;
 			UI.displayStatusChange(user, "Confused");
 		}
 		@Override
@@ -208,8 +222,10 @@ public class Status {
 	}
 	
 	class Freeze extends Status{
+		int endon;
 		public Freeze(Pokemon user) {
 			super(user);
+			endon = gameMaster.getTurnCounter() + 999;
 			UI.displayStatusChange(user, "Frozen");
 		}
 		@Override
@@ -225,8 +241,10 @@ public class Status {
 	}
 	
 	class Paralyze extends Status{
+		int endon;
 		public Paralyze(Pokemon user) {
 			super(user);
+			endon = gameMaster.getTurnCounter() + 4;
 			UI.displayStatusChange(user, "Paralyzed");
 		}
 		@Override
@@ -243,8 +261,10 @@ public class Status {
 	}
 	
 	class Sleep extends Status{
+		int endon;
 		public Sleep(Pokemon user) {
 			super(user);
+			endon = gameMaster.getTurnCounter() + 4;
 			UI.displayStatusChange(user, "Sleeping");
 		}
 		@Override
@@ -255,8 +275,10 @@ public class Status {
 	}
 	
 	class Flinch extends Status{
+		int endon;
 		public Flinch(Pokemon user) {
 			super(user);
+			endon = gameMaster.getTurnCounter();
 			UI.displayAction(user, "Flinched");
 		}
 		@Override
@@ -267,8 +289,10 @@ public class Status {
 	}
 	
 	class SpdBuff extends Status{
+		int endon;
 		public SpdBuff(Pokemon user) {
 			super(user);
+			endon = gameMaster.getTurnCounter() + 4;
 			UI.displayAction(user, "is now faster");
 		}
 		@Override
@@ -278,8 +302,10 @@ public class Status {
 	}
 	
 	class DmgBuff extends Status{
+		int endon;
 		public DmgBuff(Pokemon user) {
 			super(user);
+			endon = gameMaster.getTurnCounter() + 4;
 			UI.displayAction(user, "is now stronger");
 		}
 		@Override
@@ -289,8 +315,10 @@ public class Status {
 	}
 	
 	class Fly extends Status{
+		int endon;
 		public Fly(Pokemon user) {
 			super(user);
+			endon = gameMaster.getTurnCounter() + 1;
 			UI.displayAction(user, "flew up in the air");
 		}
 		@Override
@@ -300,8 +328,10 @@ public class Status {
 	}
 	
 	class Protect extends Status{
+		int endon;
 		public Protect(Pokemon user) {
 			super(user);
+			endon = gameMaster.getTurnCounter();
 			UI.displayAction(user, "protected itself");
 		}
 		@Override
@@ -311,8 +341,10 @@ public class Status {
 	}
 	
 	class Recharge extends Status{
+		int endon;
 		public Recharge(Pokemon user) {
 			super(user);
+			endon = gameMaster.getTurnCounter() + 1;
 			UI.displayAction(user, "is recharging");
 		}
 		@Override

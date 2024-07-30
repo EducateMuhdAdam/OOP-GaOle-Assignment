@@ -83,7 +83,7 @@ public class Instruction {
 		return( 		
 				(move, enemy) -> {	
 					int hits = 2;
-					int randNm = (int)(Math.random() * 8);
+					int randNm = (int)(Math.random() * 8) + 1;
 					int initPower = move.getPower();
 							
 					if (randNm == 8) hits = 5;
@@ -91,11 +91,11 @@ public class Instruction {
 					else if (randNm >= 4) hits = 3;
 							
 					for (int i=0;i < hits;i++) {
-						UI.displayMessage("Hit!");
+						UI.displayMessage(UI.colorFont("Hit!", UI.GREEN));
 						enemy.takeDamage(move.CalculateDmg(move, enemy));
 						move.setPower(move.getPower() + inc);
 					}
-					UI.displayMessage(String.format("It hit %d time(s)!", hits));
+					UI.displayMessage(UI.colorFont(String.format("It hit %d time(s)!", hits), UI.YELLOW));
 					move.setPower(initPower);
 				}
 		);

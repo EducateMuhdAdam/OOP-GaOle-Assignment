@@ -267,6 +267,7 @@ public class Pokemon {
     }
     public void setCurrent_hp(int current_hp) {
         this.current_hp = current_hp;
+		if (this.current_hp > hp_max) this.current_hp = hp_max;
     }
     public int getCurrent_hp() {
         return this.current_hp;
@@ -287,14 +288,20 @@ public class Pokemon {
 
     public void changeSpeed(int spd) {
     	stage_speed += spd;
+		if (stage_speed > 6) stage_speed = 6;
+		if (stage_speed < -6) stage_speed = -6;
     }
     
     public void changeAttack(int atk) {
     	stage_attack += atk;
+		if (stage_attack > 6) stage_attack = 6;
+		if (stage_attack < -6) stage_attack = -6;
     }
     
     public void changeDefence(int def) {
-    	stage_attack += def;
+    	stage_defense += def;
+		if (stage_defense > 6) stage_defense = 6;
+		if (stage_defense < -6) stage_defense = -6;
     }
     
     public void takeDamage(int damage) {
