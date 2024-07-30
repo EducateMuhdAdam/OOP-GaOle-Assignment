@@ -1,12 +1,11 @@
-package src;
-
 import java.util.*;
 import java.util.function.*;
 import java.io.*;
+import java.lang.Math;
 
 public class Moves{
 	Pokemon user;
-	private int power, accuracy, priority;
+	private int power, accuracy, priority, stage_accuracy;
 	private String  move_ID, move_name, move_action;
 	private ArrayList<BiConsumer<Moves, Pokemon>> inst = new ArrayList<BiConsumer<Moves, Pokemon>>();
 	private Type type;
@@ -358,9 +357,11 @@ public class Moves{
 	
 	public void UseOn(Pokemon enemy) {
 		UI.displayAttack(this);
-		for (int i=0;i < inst.size();i++) {
-			inst.get(i).accept(this, enemy);
-		}
+		if (this.getCurrentAccuracy() >= (Math.random()* 100))
+			for (int i=0;i < inst.size();i++) {
+				inst.get(i).accept(this, enemy);
+			}
+		else UI.displayAction(user, "missed");
 	}
 	
 	
@@ -368,16 +369,40 @@ public class Moves{
 	public int getPower() {
 		return power;
 	}
+	public int getAccuracy() {
+		return accuracy;
+	}
 	public Type getType() {
 		return type;
 	}
 	
-	public void changeAccuracy(int num) {
-		accuracy += num;
-	}
 	
+	
+	public int getPriority() {
+		return priority;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+
 	public void setPower(int power) {
 		this.power = power;
+	}
+	public void setAccuracy(int accuracy) {
+		this.accuracy = accuracy;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+	public int getCurrentAccuracy() {
+		return (int)(accuracy * CalculateStageAccuracy(stage_accuracy));
+	}
+	
+	public void changeAccuracy(int num) {
+		stage_accuracy += num;
 	}
 
 	public int CalculateDmg(Moves move,Pokemon enemy) {
@@ -386,6 +411,10 @@ public class Moves{
 	
 	public static int CalculateDmg(int power, Pokemon user, Pokemon enemy) {
 		return power * user.getCurrent_attack()/enemy.getCurrent_defense();
+	}
+	
+	public static double CalculateStageAccuracy(int stage) {
+		return stage >= 0 ? (3.0 + stage) / 3.0 : 3.0 / (3.0 - stage);
 	}
 	
 	private Type CheckType(String moveID) {
