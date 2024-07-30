@@ -1,16 +1,14 @@
-package src;
-
 import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.InputMismatchException;
 
 
 public class gameMaster {
-
+	static Scanner input = new Scanner(System.in);
 	//global array of integer to be used by methods menu and play choice
-	private static final ArrayList<Integer> acceptedOptions = new ArrayList<>(Arrays.asList(1, 2, 3));
 
 	private enum STATE {
 		MENU,
@@ -22,9 +20,6 @@ public class gameMaster {
 
 	//this is a Interface Method therefore it should be public
 	public static void menu() {
-
-
-		Scanner input = new Scanner(System.in);
 		int userChoice = 0;
 
 
@@ -36,10 +31,10 @@ public class gameMaster {
 				System.out.println("\nEnter selected option: ");
 				userChoice = input.nextInt();
 
-				if (acceptedOptions.contains(userChoice)) {
+				if (userChoice == 1 || userChoice == 2 || userChoice == 3) {
 					switch (userChoice) {
 						case 1:
-							playChoice(input);
+							playChoice();
 							break;
 						case 2:
 							System.out.println("Options selected.");
@@ -53,8 +48,9 @@ public class gameMaster {
 					System.out.println("Please select a valid option (1 to 3).");
 					continue;
 				}
-			} catch (Exception InputMismatchException) {
+			} catch (InputMismatchException e) {
 				System.out.println("Only accepts integer as input\n");
+				System.out.println(e);
 				input.nextLine(); // Clear the buffer
 				continue;
 			}
@@ -62,22 +58,22 @@ public class gameMaster {
 	}
 
 	//implement the functionality of menu method therefore it is private
-	private static void playChoice(Scanner input) {
-
+	private static void playChoice() {
+		int gameMode;
 		while (true) {
 			try {
 				String[] playMenu = {"Battle and Catch", "Catch Now", "Back"};
 				menuGenerator(playMenu);
 
-				System.out.println("\nEnter selected option: ");
-				int gameMode = input.nextInt();
+				System.out.println("\nEnter selected option:");
+				gameMode = input.nextInt();
 
-				if (acceptedOptions.contains(gameMode)) {
+				if (gameMode == 1 || gameMode == 2 || gameMode == 3) {
 					switch (gameMode) {
 						case 1:
-							state = STATE.GAME;
+							//state = STATE.GAME;
 							LocalDateTime start = LocalDateTime.now();
-							generatePokemon();
+							choosePokemon(generatePokemon(3));
 
 
 							break;
@@ -90,23 +86,21 @@ public class gameMaster {
 						//game.startBattle();
 
 						case 2:
-							generatePokemon();
+							choosePokemon(generatePokemon(3));
 							break;
 
 						case 3:
 							return;
 					}
-				} else {
+				} 
+				else {
 					System.out.println("Please select a valid option (1 to 3).");
-					continue;
 				}
-			} catch (Exception InputMismatchException) {
+			} catch (InputMismatchException e) {
 				System.out.println("Only accepts integer as input\n");
-				input.nextLine(); // Clear the buffer
 				continue;
 			}
 		}
-
 	}
 
 	//this is a helper method that implement the functionality of menu method therefore it should be private for encapsulation
@@ -134,68 +128,57 @@ public class gameMaster {
 		}
 	}
 
-	private static void generatePokemon() {
-		Pokemon chosenPokemon = null;
-		Pokemon wildPokemon = null;
+	private static ArrayList<Pokemon> generatePokemon(int num) {
+		final int TOTALPOKE = 29;
+		
 		ArrayList<Integer> indices = new ArrayList<>();
 		ArrayList<Pokemon> generatedPokemons = new ArrayList<>();
-		for (int i = 1; i < 29; i++) {
+		for (int i = 1; i < TOTALPOKE; i++) {
 			indices.add(i);
 		}
-
+		if (num > TOTALPOKE) num = TOTALPOKE; 
+		
 		Collections.shuffle(indices);
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < num; i++) {
 			int index = indices.get(i);
 			Pokemon pokemon = new Pokemon(index, Team.Ally);
 			generatedPokemons.add(pokemon);
-			UI.displayPokemonDetails(pokemon);
 		}
-
+		return generatedPokemons;
+		}
+	
+	public static Pokemon choosePokemon(ArrayList<Pokemon> pokelist) {
 		System.out.println("Choose your Pokémon by entering its ID: ");
 		Scanner input = new Scanner(System.in);
 
-
 		while (true) {
 			try {
-				int chosenPokemonID = input.nextInt();
+				for (Pokemon pokemon: pokelist) {
+					UI.displayPokemonDetails(pokemon);
+				}
+				
+				int chosenPokemon = input.nextInt();
 
-				boolean validChoice = false;
-				for (Pokemon pokemon : generatedPokemons) {
+				
+				for (Pokemon pokemon : pokelist) {
 
-					if (pokemon.getPokemon_id() == chosenPokemonID) {
-						chosenPokemon = pokemon;
-						UI.displayMessage("You have chosen " + chosenPokemon.getName());
-						validChoice = true;
-						break;
+					if (pokemon.getPokemon_id() == chosenPokemon) {
+						UI.displayMessage("You have caught a " + pokemon.getName());
+						return pokemon;
 					}
 				}
-
-				if (!validChoice) {
-					System.out.println("Invalid choice. No Pokémon with the name " + chosenPokemonID + " found.");
+					System.out.println("Invalid choice. No Pokémon with the name " + chosenPokemon + " found.");
 					System.out.println("Please choose a valid Pokémon by entering its name: ");
 					input.nextLine();
 
-				}
-
-			} catch (Exception InputTypeMismatchException) {
-				throw new RuntimeException(InputTypeMismatchException);
 			}
 
-
-			input.close();
-			for (Pokemon pokemon : generatedPokemons) {
-				if (!pokemon.equals(chosenPokemon)) {
-					wildPokemon = new Pokemon(pokemon.getPokemon_id(), Team.Enemy);
-
-				}
+			catch (InputMismatchException e) {
+				System.out.println("Enter a valid Pokemon ID (Integer)");
+				input.nextLine();
+				continue;
 			}
-			ArrayList<Pokemon> pokemonList = new ArrayList<>();
-			pokemonList.add(wildPokemon);
-			pokemonList.add(chosenPokemon);
-
-
 		}
-
 	}
 }
 
