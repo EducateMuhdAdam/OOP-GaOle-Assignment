@@ -5,7 +5,7 @@ import java.util.function.*;
 import java.io.*;
 import java.lang.Math;
 
-public class Moves{
+ public class Moves{
 	Pokemon user;
 	private int power, accuracy, priority, stage_accuracy;
 	private String  move_ID, move_name, move_action;

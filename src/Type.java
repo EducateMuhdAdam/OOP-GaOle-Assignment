@@ -1,6 +1,6 @@
 package src;
 
-public enum Type {
+ public enum Type {
 	Normal,
 	Fire,
 	Water,
