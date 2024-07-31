@@ -306,8 +306,10 @@ public class Pokemon {
     
     public void takeDamage(int damage) {
     	UI.displayDamage(this, damage);
+		gameMaster.player.CalculateScore(damage);
     	current_hp -= damage;
     	UI.displayHealthBar(this);
+
     }
 
 	@Override

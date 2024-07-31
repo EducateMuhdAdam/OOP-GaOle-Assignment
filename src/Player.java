@@ -1,8 +1,15 @@
  package src;
 
-import java.util.ArrayList;
+import jdk.jshell.spi.ExecutionControl;
 
-public class Player {
+import java.io.*;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+import java.util.*;
+
+ public class Player {
 	private String username;
 	private int score;
 	private int[] pokemon_list;
@@ -48,8 +55,8 @@ public class Player {
 		System.out.println();
 	}
 	//
-	public void CalculateScore(Pokemon pokemon){
-		 this.score += 1 * pokemon.getCurrent_attack() * pokemon.getGrade()* pokemon.getCurrent_speed();
+	public void CalculateScore(int addScore){
+		 this.score += addScore;
 
 		setScore(this.score);
 	}
@@ -61,6 +68,84 @@ public class Player {
 	public void setScore(int score) {
 		this.score = score;
 	}
+
+	 public void topScore(Player player){
+		 HashMap<String, Integer> leaderboard = new HashMap<String, Integer>();
+		 ArrayList<String[]> score_data = new ArrayList<String[]>();
+		 try {
+			 File textfile = new File(System.getProperty("user.dir") + "\\src\\topscorelist.csv");
+			 Scanner data = new Scanner(textfile);
+			 String[] line;
+			 while (data.hasNextLine()) {
+				 line = data.nextLine().split(",", 0);
+				 if (line.length != 0)
+				 	score_data.add(line);
+			 }
+			 data.close();
+		 }
+		 catch(FileNotFoundException e){
+			 System.out.println("Score File Can't Be Read");
+		 }
+
+		 int score = player.getScore();
+
+		 for (String[] log: score_data){
+			 leaderboard.put(log[0], Integer.parseInt(log[1]));
+		 }
+		 leaderboard.put(player.getUsername(), player.getScore());
+
+		 HashMap<String, Integer> newlead = sortByValue(leaderboard);
+		 int i = 1;
+		 for (Map.Entry<String, Integer> log: newlead.entrySet()){
+			 if (i <= 5)
+			 	System.out.printf("%d. %s - %d", i, log.getKey(), log.getValue());
+			 i++;
+		 }
+		 System.out.println();
+		 WriteLeaderboard(leaderboard);
+	 }
+	 public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm)
+	 {
+		 // Create a list from elements of HashMap
+		 List<Map.Entry<String, Integer> > list =
+				 new LinkedList<Map.Entry<String, Integer> >(hm.entrySet());
+
+		 // Sort the list
+		 Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
+			 public int compare(Map.Entry<String, Integer> o1,
+								Map.Entry<String, Integer> o2)
+			 {
+				 return (o1.getValue()).compareTo(o2.getValue());
+			 }
+		 });
+
+		 // put data from sorted list to hashmap
+		 HashMap<String, Integer> temp = new LinkedHashMap<String, Integer>();
+		 for (Map.Entry<String, Integer> aa : list) {
+			 temp.put(aa.getKey(), aa.getValue());
+		 }
+		 return temp;
+	 }
+	 public void WriteLeaderboard(HashMap<String, Integer> lead){
+		 try {
+			 File scorefile = new File("topscorelist.csv");
+			 if (scorefile.createNewFile()) {
+				 System.out.println("File created: " + scorefile.getName());
+			 } else {
+				 System.out.println("File already exists.");
+			 }
+			 FileWriter writer = new FileWriter(scorefile);
+			 String pidgeon = "";
+			 for (Map.Entry<String, Integer> line: lead.entrySet())
+				 pidgeon += String.format("%s,%d\n",line.getKey(), line.getValue());
+			 writer.write(pidgeon);
+		 } catch (IOException e) {
+			 System.out.println("An error occurred.");
+			 e.printStackTrace();
+		 }
+
+
+	 }
 
 
 }
