@@ -108,12 +108,16 @@ public class Status {
 			}
 		}
 	}
-	
+
 	public void RemoveStatus(Class<?> ail) {
-		for (int i = 0; i < status_list.size(); i++) {
-			if (ail.isInstance(status_list.get(i))) {
-				status_list.remove(i);
+		ArrayList<Status> toRemove = new ArrayList<Status>();
+		for (Status s: status_list) {
+			if (ail.isInstance(s)) {
+				toRemove.add(s);
 			}
+		}
+		for (Status s: toRemove) {
+			RemoveStatus(s);
 		}
 	}
 	
@@ -388,6 +392,7 @@ public class Status {
 		}
 		@Override
 		public void Endstep(){
+			if (gameMaster.getTurnCounter() < endon)
 				gameMaster.addTurn(move);
 		}
 
@@ -427,13 +432,10 @@ public class Status {
 			}
 			endon = gameMaster.getTurnCounter() + 1;
 		}
-		@Override
-		public void Upkeep() {
-			UI.displayAction(user, "is recharging...");
-			gameMaster.skipTurn(user);
-		}
+
 		@Override
 		public void Endstep(){
+			UI.displayAction(user, "is recharging...");
 			gameMaster.addTurn(move);
 		}
 		public int getEndon(){
