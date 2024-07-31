@@ -393,7 +393,7 @@ public class gameMaster {
 		return (UI.colorFont(String.format("Game duration: %d hours, %d minutes, %d seconds", hours, minutes, seconds), UI.CYAN));
 	}
 
-	 public static void catchTime(ArrayList<Pokemon> catchChance) {
+	public static void catchTime(ArrayList<Pokemon> catchChance) {
 
 		Pokemon chosenPoke = new Pokemon (1,Team.Ally);
 		if (catchChance.size() > 0) {
