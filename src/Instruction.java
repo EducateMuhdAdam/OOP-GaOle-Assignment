@@ -130,7 +130,7 @@ public class Instruction {
 	static public BiConsumer<Moves, Pokemon> ApplyUserStatus(Consumer<Status> ail) {
 		return (move, enemy) -> {move.user.getStatus().AddStatus(ail);};
 	}
-	static public BiConsumer<Moves, Pokemon> RemoveUserStatus(Class<Status> ail) {
+	static public BiConsumer<Moves, Pokemon> RemoveUserStatus(Class<?> ail) {
 		return (move, enemy) -> {move.user.getStatus().RemoveStatus(ail);};
 	}
 	static public BiConsumer<Moves, Pokemon> ApplyUserStatusAction(Consumer<Status> ail, String act) {
@@ -227,13 +227,16 @@ public class Instruction {
 		return (
 				(move, enemy) -> {
 					for (Moves m: gameMaster.getMainlog().get(gameMaster.getTurnCounter())){
-						if (m.user.getTeam() != move.user.getTeam() && m.getMove_action().equalsIgnoreCase("self"))
+						if (m.user.getTeam() != move.user.getTeam() && m.getMove_action().equalsIgnoreCase("target"))
 							return true;
 					}
 					return false;
 				}
 		);
 	}
-	
+
+
+
+
 }
 	

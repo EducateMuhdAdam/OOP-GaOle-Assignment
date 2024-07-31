@@ -1,7 +1,6 @@
 package src;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class UI {
@@ -30,6 +29,16 @@ public class UI {
         System.out.flush();
     }
 
+    public static void view_score(String[] data) {
+        System.out.println("Username | Score");
+        System.out.println("-----------------");
+        for (String entry : data) {
+            String[] parts = entry.split(",");
+            String username = parts[0];
+            String score = parts[1];
+            System.out.printf("%-10s | %s%n", username, score);
+        }
+    }
     //After you catch a pokemon, you can display this
     public static void displayPokemonDetails(Pokemon pokemon) {
         displaySeparator();
@@ -125,23 +134,6 @@ public class UI {
         System.out.println();
     }
 
-
-    // Method to display the game start message
-    public static void displayGameStart() {
-        displayMessage("Welcome to the Pokémon Ga-Ole Game!");
-        System.out.println();
-    }
-
-    public static void displayGameSetup() {
-        displayMessage("Setting up the game...");
-        System.out.println();
-    }
-
-    public static void displayLoadingData() {
-        displayMessage("Loading Pokémon data...");
-        System.out.println();
-    }
-
     public static void displayCatchOptions(ArrayList<Pokemon> catchOptions) {
         displaySeparator();
         System.out.println(UI.colorFont("Choose a Pokémon to catch:", UI.CYAN));
@@ -155,15 +147,6 @@ public class UI {
 
     public static int getCatchChoice() {
         return scanner.nextInt();
-    }
-    public static void displayCatchResult(boolean success) {
-        if (success) {
-            System.out.println("Congratulations! You caught the Pokémon.");
-            System.out.println();
-        } else {
-            System.out.println("Failed to catch the Pokémon. Better luck next time.");
-            System.out.println();
-        }
     }
 
     // New methods for battle messages
@@ -228,33 +211,6 @@ public class UI {
         System.out.println();
     }
 
-    public static void displayPlayerTurn() {
-        displayMessage("It's your turn! Choose your action.");
-        System.out.println();
-    }
-
-    public static void displaySelectMove() {
-        displayMessage("Select a move for your Pokémon: ");
-        System.out.println();
-    }
-
-
-    public static void displayOpponentTurn() {
-        displayMessage("Opponent's turn. Please wait...");
-        System.out.println();
-    }
-
-    public static void displaySuperEffective() {
-        displayMessage("It's super effective!");
-        System.out.println();
-    }
-
-    public static void displayNotEffective() {
-        displayMessage("It's not very effective...");
-        System.out.println();
-    }
-
-
     public static void displayStatusChange(Pokemon poke, String status) {
         displayMessage(UI.colorFont(String.format(poke.getTeam() + " " + poke.getName() + " is now " + status + "!"), UI.PURPLE));
         System.out.println();
@@ -285,12 +241,6 @@ public class UI {
         displayMessage(UI.colorFont("     You lost the battle. Better luck next time.  ", UI.RED));
         System.out.println();
         displaySeparator();
-        System.out.println();
-    }
-
-    //show this when HP is red, which is 20%
-    public static void displayLowHPWarning() {
-        displayMessage("Warning: Your Pokémon's HP is low!");
         System.out.println();
     }
 
