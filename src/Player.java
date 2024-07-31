@@ -139,7 +139,7 @@ import java.util.*;
 			 for (Map.Entry<String, Integer> line: lead.entrySet())
 				 pidgeon += String.format("%s,%d\n",line.getKey(), line.getValue());
 			 writer.write(pidgeon);
-			 writer.close()
+			 writer.close();
 		 } catch (IOException e) {
 			 System.out.println("An error occurred.");
 			 e.printStackTrace();
