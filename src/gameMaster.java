@@ -12,7 +12,8 @@ public class gameMaster {
 	private static ArrayList<Pokemon> ally;
 	private static ArrayList<Pokemon> enemy;
 	private static ArrayList<Pokemon> catchChance;
-	private static HashMap<Integer, ArrayList<Moves>> mainlog;
+	private static HashMap<Integer, ArrayList<Moves>> mainlog = new HashMap<Integer, ArrayList<Moves>>();
+	private static ArrayList<Pokemon> skipped = new ArrayList<Pokemon>();
 
 	private static LocalDateTime start;
 	private static LocalDateTime end;
@@ -30,7 +31,7 @@ public class gameMaster {
 
 		System.out.println(UI.colorFont("Enter your username: ", UI.GREEN));
 		String name = input.nextLine();
-		Player player = new Player(name,0,null);
+		Player player = new Player(name, 0, null);
 
 
 		while (true) {
@@ -38,7 +39,7 @@ public class gameMaster {
 				String[] mainMenu = {"PLAY", "OPTIONS", "QUIT"};
 				menuGenerator(mainMenu);
 
-				System.out.println(UI.colorFont("\nEnter selected option: ",UI.GREEN));
+				System.out.println(UI.colorFont("\nEnter selected option: ", UI.GREEN));
 				userChoice = input.nextInt();
 
 				if (userChoice == 1 || userChoice == 2 || userChoice == 3) {
@@ -130,7 +131,7 @@ public class gameMaster {
 	}
 
 	private static ArrayList<Pokemon> generatePokemon(int num, Team team) {
-		final int TOTALPOKE = 28;
+		final int TOTALPOKE = 23;
 
 		ArrayList<Integer> indices = new ArrayList<>();
 		ArrayList<Pokemon> generatedPokemons = new ArrayList<>();
@@ -200,42 +201,54 @@ public class gameMaster {
 		enemy = enemylist;
 		queue = new ArrayList<Moves>();
 		catchChance = new ArrayList<Pokemon>();
-		mainlog = new HashMap<Integer, ArrayList<Moves>>();
-		ArrayList<Moves> turnlog = new ArrayList<Moves>();
-		ArrayList<Pokemon> defeated = new ArrayList<Pokemon>();
 		turnCounter = 0;
 
 		UI.displayBattleStart();
-		UI.DisplayBattlePokemon(allylist, enemylist);
-		while(!ally.isEmpty() && !enemy.isEmpty()) {
-			turnlog.clear();
+		while (!ally.isEmpty() && !enemy.isEmpty()) {
 			turnCounter++;
+			mainlog.put(turnCounter, new ArrayList<Moves>());
+			System.out.printf("TURN %d\n", getTurnCounter());
+			UI.DisplayBattlePokemon(allylist, enemylist);
+
 			initQueue(ally, enemy);
-			for (Moves move: queue){
-				if (CheckAlive(move.user)){
+			for (Moves move : queue) {
+				if (CheckAlive(move.user)) {
 					move.user.getStatus().CheckUpkeep();
-					if (CheckAlive(move.user)) {DoTurn(move); turnlog.add(move);}
+					if (CheckAlive(move.user) && !skipped.contains(move.user)) {
+						addToHash(getTurnCounter(), move);
+						DoTurn(move);
+					}
 					UpdateAlive();
 				}
 
 			}
-			mainlog.put(turnCounter, turnlog);
 			queue.clear();
 			EndstepTrigger();
 			UpdateAlive();
-			}
+		}
+		//readHash();
 		if (ally.isEmpty()) UI.displayDefeat();
-		if (enemy.isEmpty()) UI.displayVictory();
+
+
+		if (enemy.isEmpty())
+			UI.displayVictory();
+
+
 	}
+
+
 	public static void DoTurn(Moves move){
-		if (move.getMove_action().equalsIgnoreCase("self")) move.UseOn(move.user);
+		System.out.println(move.getMove_action());
+		if (move.getMove_action().equalsIgnoreCase("self")) {UI.displayAttack(move);move.UseOn();}
 		else {
 			if (move.user.getTeam() == Team.Ally) {
+				UI.displayAttack(move);
 				for (Pokemon poke: enemy){
 					move.UseOn(poke);
 				}
 			}
 			if (move.user.getTeam() == Team.Enemy) {
+				UI.displayAttack(move);
 				for (Pokemon poke: ally){
 					move.UseOn(poke);
 				}
@@ -244,6 +257,28 @@ public class gameMaster {
 	}
 	public static int getTurnCounter(){
 		return turnCounter;
+	}
+	public static void readHash(){
+		for (int i = 1; i <= mainlog.size();i++){
+			System.out.println("Turn " + i);
+			for (Moves m : mainlog.get(i)){
+				System.out.println(m.getMove_name());
+			}
+
+		}
+	}
+	public static void addToHash(int Key, Moves move) {
+		ArrayList<Moves> moveList = mainlog.get(Key);
+
+		// if list does not exist create it
+		if(moveList == null) {
+			moveList = new ArrayList<Moves>();
+			moveList.add(move);
+			mainlog.put(Key, moveList);
+		} else {
+			// add if item is not already in list
+			if(!moveList.contains(move)) moveList.add(move);
+		}
 	}
 	public static HashMap<Integer, ArrayList<Moves>> getMainlog(){
 		return mainlog;
@@ -298,11 +333,18 @@ public class gameMaster {
 		}
 	}
 	public static void initQueue(ArrayList<Pokemon> ally, ArrayList<Pokemon> enemy){
-		for (int i = 0; i < ally.size(); i++){
-			queue.add(UI.displaySelectMove(ally.get(i)));
-		}
+
+		ArrayList<Pokemon> prequeue = new ArrayList<Pokemon>();
+        for (Moves moves : queue) {
+            prequeue.add(moves.user);
+        }
+        for (Pokemon pokemon : ally) {
+            if (!prequeue.contains(pokemon))
+                queue.add(UI.displaySelectMove(pokemon));
+        }
 		for (int i = 0; i < enemy.size(); i++) {
-			queue.add(UI.displaySelectMove(enemy.get(i), (int) (Math.random() * 2 + 1)));
+			if (!prequeue.contains(enemy.get(i)))
+				queue.add(UI.displaySelectMove(enemy.get(i), (int) (Math.random() * 2 + 1)));
 		}
 
 		queue.sort((o1, o2) -> o2.user.getSpeed() - o1.user.getSpeed());
@@ -313,8 +355,12 @@ public class gameMaster {
 		}
 	}
 	public static void skipTurn (Pokemon poke) {
-		queue.removeIf(move -> move.user.equals(poke));
-		UI.displayMessage((poke.getName() + "skipped its turn!"));
+		skipped.add(poke);
+		UI.displayMessage((poke.getTeam()+ " " + poke.getName() + " skipped its turn!"));
+	}
+
+	public static void addTurn (Moves move) {
+		queue.add(move);
 	}
 
 	public static String gameDuration(LocalDateTime start, LocalDateTime end) {
@@ -324,4 +370,11 @@ public class gameMaster {
 		long seconds = duration.getSeconds() % 60;
 		return String.format("Game duration: %d hours, %d minutes, %d seconds", hours, minutes, seconds);
 	}
+
+	//public static void catchTime(ArrayList<Pokemon> enemylist){
+		//UI.displayPokemonDetails();
+		//UI.displayCatchOptions();
+		//UI.displayCatchResult();
+
+	//}
 }

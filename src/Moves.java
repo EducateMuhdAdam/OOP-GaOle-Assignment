@@ -104,7 +104,7 @@ public class Moves{
 			case "WT2":
 				{Collections.addAll(inst, 
 						Instruction.Attack(),
-						Instruction.ApplyUserStatus(Status::Recharge)); 
+						Instruction.ApplyUserStatus(Status::Recharge));
 				break;}
 			case "WT3":
 				{Collections.addAll(inst, 
@@ -319,7 +319,8 @@ public class Moves{
 				break;}
 			case "DR2":
 				{Collections.addAll(inst, 
-						null); // Does double damage if user was attacked
+						Instruction.ExecuteIf(Instruction.UserAttackedCondition(), Instruction.ApplyUserStatus(Status::DmgBuff)),
+						Instruction.Attack()); // Does double damage if user was attacked
 				break;}
 			case "DR3":
 				{Collections.addAll(inst, 
@@ -358,10 +359,20 @@ public class Moves{
 	
 	
 	public void UseOn(Pokemon enemy) {
-		UI.displayAttack(this);
+		if (!enemy.getStatus().CheckPrevention()) {
+			if (this.getCurrentAccuracy() >= (Math.random() * 100) + 1)
+				for (int i = 0; i < inst.size(); i++) {
+					inst.get(i).accept(this, enemy);
+				}
+			else UI.displayAction(user, "missed");
+		}
+		else UI.displayAction(enemy, "can't be hit!");
+	}
+
+	public void UseOn(){
 		if (this.getCurrentAccuracy() >= (Math.random() * 100) + 1)
-			for (int i=0;i < inst.size();i++) {
-				inst.get(i).accept(this, enemy);
+			for (int i = 0; i < inst.size(); i++) {
+				inst.get(i).accept(this, this.user);
 			}
 		else UI.displayAction(user, "missed");
 	}

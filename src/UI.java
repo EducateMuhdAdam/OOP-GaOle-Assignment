@@ -288,7 +288,7 @@ public class UI {
 
     // Method to display the game end message
     public static void displayGameEnd() {
-        displayMessage("Thank you for playing the Pokémon Ga-Ole Game!");
+        displayMessage(UI.colorFont("Thank you for playing the Pokémon Ga-Ole Game!", UI.GREEN));
         System.out.println();
     }
 

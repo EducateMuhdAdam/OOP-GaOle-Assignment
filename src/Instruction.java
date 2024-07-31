@@ -83,7 +83,7 @@ public class Instruction {
 		return( 		
 				(move, enemy) -> {	
 					int hits = 2;
-					int randNm = (int)(Math.random() * 8) + 1;
+					int randNm = (int)(Math.random() * 8);
 					int initPower = move.getPower();
 							
 					if (randNm == 8) hits = 5;
@@ -130,6 +130,10 @@ public class Instruction {
 	static public BiConsumer<Moves, Pokemon> ApplyUserStatus(Consumer<Status> ail) {
 		return (move, enemy) -> {move.user.getStatus().AddStatus(ail);};
 	}
+	static public BiConsumer<Moves, Pokemon> ApplyUserStatusAction(Consumer<Status> ail, String act) {
+		return (move, enemy) -> {move.user.getStatus().AddStatus(ail);
+								 move.setMove_action(act);};
+	}
 	
 	static public BiConsumer<Moves, Pokemon> MaxUserHealth() {
 		return( 		
@@ -137,6 +141,13 @@ public class Instruction {
 					move.user.setCurrent_hp(move.user.getHp_max());
 					UI.displayMessage("it restored it health to full!");
 					UI.displayHealthBar(move.user);
+				}
+		);
+	}
+	static public BiConsumer<Moves, Pokemon> ChangeMoveAction(String s) {
+		return(
+				(move, enemy) -> {
+					move.setMove_action(s);
 				}
 		);
 	}
@@ -196,6 +207,18 @@ public class Instruction {
 				(move, enemy) -> {
 					for (Status s: move.user.getStatus().getStatusList()) {
 						if (ail.isInstance(s)) return true;
+					}
+					return false;
+				}
+		);
+	}
+
+	static public BiFunction<Moves, Pokemon, Boolean> UserAttackedCondition() {
+		return (
+				(move, enemy) -> {
+					for (Moves m: gameMaster.getMainlog().get(gameMaster.getTurnCounter())){
+						if (m.user.getTeam() != move.user.getTeam() && m.getMove_action().equalsIgnoreCase("self"))
+							return true;
 					}
 					return false;
 				}

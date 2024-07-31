@@ -5,7 +5,8 @@ import java.util.function.Consumer;
 
 public class Status {
 	public Pokemon user;
-	public ArrayList<Status> status_list = new ArrayList<Status>();
+	private ArrayList<Status> status_list = new ArrayList<Status>();
+	private int endon;
 
 	
 	
@@ -87,6 +88,11 @@ public class Status {
 	public boolean PreventAttack() {
 		return false;
 	}
+
+	public int getEndon() {
+		return endon;
+	}
+
 	//--------------------------------------------------
 	
 	//Status Class Methods------------------------------
@@ -137,6 +143,20 @@ public class Status {
 		for (Status s: status_list) {
 			s.Endstep();
 		}
+		CheckTurnStatus();
+	}
+
+	public void CheckTurnStatus(){
+		ArrayList<Status> status_end= new ArrayList<Status>();
+		for (Status s: status_list){
+			if (s.getEndon() <= gameMaster.getTurnCounter()){
+				status_end.add(s);
+			}
+		}
+		for (Status s: status_end){
+			System.out.println("Status Removed");
+			this.RemoveStatus(s);
+		}
 	}
 
 	public boolean CheckPrevention() {
@@ -170,6 +190,10 @@ public class Status {
 		public double dmgMult() {
 			return 0.5;
 		}
+
+		public int getEndon(){
+			return endon;
+		}
 	
 	}
 	
@@ -184,6 +208,9 @@ public class Status {
 		public void Endstep() {
 			user.takeDamage(user.getHp_max() / 16);
 			
+		}
+		public int getEndon(){
+			return endon;
 		}
 	}
 	
@@ -202,6 +229,9 @@ public class Status {
 			user.takeDamage(user.getHp_max() * inc/ 16);
 			
 		}
+		public int getEndon(){
+			return endon;
+		}
 	}
 	
 	class Confuse extends Status{
@@ -215,9 +245,13 @@ public class Status {
 		public void Upkeep() {
 			if (Math.random() <= 0.5) {
 				user.takeDamage(Moves.CalculateDmg(40, user, user));
-				//skip user's turn
+				UI.displayAction(user, "hit itself in its confusion");
+				gameMaster.skipTurn(user);
 			}
 			
+		}
+		public int getEndon(){
+			return endon;
 		}
 	}
 	
@@ -233,10 +267,12 @@ public class Status {
 			if (Math.random() <= 0.2) {
 				super.RemoveStatus(this);
 			}
-			//else skip user's turn
-			System.out.println("skip turn");
+			UI.displayAction(user, "too frozen to move!");
+			gameMaster.skipTurn(user);
 		}
-		
+		public int getEndon(){
+			return endon;
+		}
 		
 	}
 	
@@ -250,13 +286,16 @@ public class Status {
 		@Override
 		public void Upkeep() {
 			if (Math.random() <= 0.5) {
-				//skip user's turn
-				System.out.println("skip turn");
+				UI.displayAction(user, "is fully paralyzed");
+				gameMaster.skipTurn(user);
 			}
 		}
 		@Override
 		public double spdMult() {
 			return 0.5;
+		}
+		public int getEndon(){
+			return endon;
 		}
 	}
 	
@@ -269,8 +308,11 @@ public class Status {
 		}
 		@Override
 		public void Upkeep() {
-			//skip user's turn
-			System.out.println("skip turn");
+			UI.displayAction(user, "is fast asleep");
+			gameMaster.skipTurn(user);
+		}
+		public int getEndon(){
+			return endon;
 		}
 	}
 	
@@ -283,8 +325,11 @@ public class Status {
 		}
 		@Override
 		public void Upkeep() {
-			//skip user's turn
-			System.out.println("skip turn");
+			UI.displayAction(user, "is recovering from flinching");
+			gameMaster.skipTurn(user);
+		}
+		public int getEndon(){
+			return endon;
 		}
 	}
 	
@@ -299,31 +344,54 @@ public class Status {
 		public double spdMult() {
 			return 2;
 		}
+		public int getEndon(){
+			return endon;
+		}
 	}
 	
 	class DmgBuff extends Status{
 		int endon;
 		public DmgBuff(Pokemon user) {
 			super(user);
-			endon = gameMaster.getTurnCounter() + 4;
+			endon = gameMaster.getTurnCounter();
 			UI.displayAction(user, "is now stronger");
 		}
 		@Override
 		public double dmgMult() {
 			return 2;
 		}
+		public int getEndon(){
+			return endon;
+		}
 	}
 	
 	class Fly extends Status{
 		int endon;
+		Moves move;
 		public Fly(Pokemon user) {
 			super(user);
 			endon = gameMaster.getTurnCounter() + 1;
+			for (int i = 1; i <= gameMaster.getMainlog().size();i++){
+				if (i == gameMaster.getTurnCounter()){
+					for (Moves m : gameMaster.getMainlog().get(i)){
+						if (m.user.equals(this.user)) move = m;
+					}
+				}
+
+			}
 			UI.displayAction(user, "flew up in the air");
 		}
 		@Override
 		public boolean PreventAttack() {
 			return true;
+		}
+		@Override
+		public void Endstep(){
+			gameMaster.addTurn(move);
+		}
+
+		public int getEndon(){
+			return endon;
 		}
 	}
 	
@@ -338,17 +406,36 @@ public class Status {
 		public boolean PreventAttack() {
 			return true;
 		}
+		public int getEndon(){
+			return endon;
+		}
 	}
 	
 	class Recharge extends Status{
 		int endon;
+		Moves move;
 		public Recharge(Pokemon user) {
 			super(user);
+			for (int i = 1; i <= gameMaster.getMainlog().size();i++){
+				if (i == gameMaster.getTurnCounter()){
+					for (Moves m : gameMaster.getMainlog().get(i)){
+						if (m.user.equals(this.user)) move = m;
+					}
+				}
+
+			}
 			endon = gameMaster.getTurnCounter() + 1;
-			UI.displayAction(user, "is recharging");
 		}
 		@Override
 		public void Upkeep() {
-			//skip turn
+			UI.displayAction(user, "is recharging...");
+			gameMaster.skipTurn(user);
+		}
+		@Override
+		public void Endstep(){
+			gameMaster.addTurn(move);
+		}
+		public int getEndon(){
+			return endon;
 		}
 	}

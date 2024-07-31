@@ -16,7 +16,7 @@ public class Player {
 	}
 	
 	
-	//getters
+	//
 	public String getUsername() {
 		return username;
 	}
@@ -47,7 +47,7 @@ public class Player {
 		System.out.println(UI.colorFont("Success!!!", UI.GREEN));
 		System.out.println();
 	}
-	//setters
+	//
 	public void CalculateScore(Pokemon pokemon){
 		this.score += 1 * pokemon.getCurrent_attack() * pokemon.getGrade()* pokemon.getCurrent_speed();
 
