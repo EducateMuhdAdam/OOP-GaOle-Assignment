@@ -5,7 +5,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.Scanner;
-import java.io.FileNotFoundException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -91,15 +90,17 @@ public class gameMaster {
 						case 1:
 							state = STATE.GAME;
 							start = LocalDateTime.now();
-							battleTime(choosePokemon(generatePokemon(3, Team.Ally), player), generatePokemon(2, Team.Enemy));
+							battleTime(choosePokemon(generatePokemon(3, Team.Ally), player), generatePokemon(2, Team.Enemy),player);
 							catchTime(catchChance);
 							LocalDateTime end = LocalDateTime.now();
 							System.out.println(gameDuration(start, end));
 							UI.displayGameEnd();
 							break;
+
 						case 2:
 							state = STATE.GAME;
 							choosePokemon(generatePokemon(3, Team.Ally), player);
+							catchTime(catchChance);
 
 							break;
 						case 3:
@@ -169,9 +170,8 @@ public class gameMaster {
 
 			while (true) {
 				try {
-					for (Pokemon pokemon : pokelist) {
-						UI.displayPokemonDetails(pokemon);
-					}
+					for(Pokemon poke : pokelist)
+						UI.displayPokemonDetails(poke);
 					System.out.println(UI.colorFont("Choose your " + counter + " Pokémon by entering its ID: ", UI.GREEN));
 
 					int chosenPokemon = input.nextInt();
@@ -207,7 +207,7 @@ public class gameMaster {
 		return chosenPokemonList;
 	}
 
-	public static void battleTime(ArrayList<Pokemon> allylist, ArrayList<Pokemon> enemylist) {
+	public static void battleTime(ArrayList<Pokemon> allylist, ArrayList<Pokemon> enemylist, Player player) {
 
 		ally = allylist;
 		enemy = enemylist;
@@ -221,7 +221,7 @@ public class gameMaster {
 			mainlog.put(turnCounter, new ArrayList<Moves>());
 			System.out.printf("TURN %d\n", getTurnCounter());
 			UI.DisplayBattlePokemon(allylist, enemylist);
-
+//player.CalculateScore(pokemon);
 			initQueue(ally, enemy);
 			for (Moves move : queue) {
 				if (CheckAlive(move.user)) {
@@ -229,6 +229,8 @@ public class gameMaster {
 					if (CheckAlive(move.user) && !skipped.contains(move.user)) {
 						addToHash(getTurnCounter(), move);
 						DoTurn(move);
+						//player.CalculateScore(pokemon);
+
 					}
 					UpdateAlive();
 				}
@@ -238,7 +240,6 @@ public class gameMaster {
 			EndstepTrigger();
 			UpdateAlive();
 		}
-
 		//readHash();
 		if (ally.isEmpty()) UI.displayDefeat();
 
@@ -249,7 +250,6 @@ public class gameMaster {
 
 
 	public static void DoTurn(Moves move) {
-		System.out.println(move.getMove_action());
 		if (move.getMove_action().equalsIgnoreCase("self")) {
 			UI.displayAttack(move);
 			move.UseOn();
@@ -371,9 +371,11 @@ public class gameMaster {
 		queue.sort((o1, o2) -> o2.user.getSpeed() - o1.user.getSpeed());
 		queue.sort((o1, o2) -> o2.getPriority() - o1.getPriority());
 
+		System.out.println("VVVV GOES FIRST VVVV");
 		for (Moves m : queue) {
-			System.out.println(UI.colorFont(String.format((m.user.getPokemon_id() + " " + m.getMove_name())), UI.YELLOW));
+			System.out.println(UI.colorFont(String.format("%s : %s", m.user.getName(), m.getMove_name()), UI.YELLOW));
 		}
+		System.out.println("VVVV GOES LAST VVVV");
 	}
 
 	public static void skipTurn(Pokemon poke) {
@@ -420,6 +422,7 @@ public class gameMaster {
 					if (catchRate > Math.random()) {
 						System.out.println(UI.colorFont("You caught " + chosenPoke.getName(), UI.GREEN));
 						ally.add(chosenPoke);
+						UI.displayPokemonDetails(chosenPoke);
 					} else {
 						System.out.println(UI.colorFont("You failed to catch " + chosenPoke.getName(), UI.RED));
 					}
@@ -429,12 +432,57 @@ public class gameMaster {
 					input.nextLine();
 				}
 			}
-			//UI.displayCatchResult();
-			// UI.displayPokemonDetails(poke);
 		}
-		//public void view_score(Player player){
 
 	}
+	public void view_score(Player player) throws IOException {
+		int player_score = player.getScore();
+        try {
+            String[] data = read_file();
+			data = sort(data, player.getScore(),player.getUsername());
+            /* here then I will call UI to print out the table of score */
+			UI.view_score(data);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+	public static String[] sort(String[] data, int score, String username) {
+		List<String> dataList = new ArrayList<>(Arrays.asList(data));
+		dataList.add(username + "," + score);
+		dataList.sort((a, b) -> {
+			int scoreA = Integer.parseInt(a.split(",")[1]);
+			int scoreB = Integer.parseInt(b.split(",")[1]);
+			return Integer.compare(scoreB, scoreA); // Sort in descending order
+		});
+		return dataList.toArray(new String[0]);
+	}
+
+	public static String[] read_file() throws IOException {
+		String fileName = System.getProperty("user.dir") + "\\src\\stopscorelist.csv";
+		FileReader reader = new FileReader(fileName);
+		BufferedReader bufferedReader = new BufferedReader(reader);
+		String line = "";
+		String data[] = new String[0];
+		while(true) {
+            if (bufferedReader.readLine() == null) break;
+            data = line.split(",");
+        }
+		return data;
+	}
+	public static void write_changes_file(String[] scores) throws IOException {
+		String fileName = System.getProperty("user.dir") + "\\src\\topscorelist.csv";
+		FileWriter writer = new FileWriter(fileName);
+
+		for(int i = 0; i < scores.length; i++){
+			writer.append(scores[i]+ ','+ scores[1] + "\n");
+		}
+		writer.close();
+
+
+	}
+
 }
 
 
@@ -445,26 +493,10 @@ public class gameMaster {
 		//FileWriter writer = new FileWriter(fileName);
 	    //
 		//for(int i = 0; i < scores.length; i++){
-		//		writer.append("%s,%s\n"scores[i], scores[1])
+		//		writer.append("%s,%s\n"scores[i], scores[1]);
 		// }
 		//writer.close();
 
 	//}
-	//public static String[] read_file() throws FileNotFoundException{
-	// 		String fileName = System.getProperty("user.dir") + "\\src\\score.csv";
-	//		FileReader reader = new FileReader(fileName);
-	//		BufferedReader bfrreader = new BufferedReader(reader);
-	//		String line;
-	//		while((line = bfrreader.readLine()) != null){
-	//			String[] data = line.split(",");
-	//		}
-	//
-	//
-	//
-	//
-	//
-	//
-	//fyck
-	//		return data;
-	// }
+
 
