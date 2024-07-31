@@ -5,13 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" name="Changes" comment="changes">
-      <change beforePath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Moves.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moves.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/Fly.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/Fly.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/Instruction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/Instruction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/Moves.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/Moves.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/Protect.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/Protect.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/Recharge.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/Recharge.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/Type.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/Type.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/UI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/UI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/gameMaster$STATE.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/gameMaster$STATE.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/gameMaster.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP-GaOle-Assignment/src/gameMaster.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/UI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gameMaster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameMaster.java" afterDir="false" />
     </list>
+    <list id="c1870f03-3abd-4da9-801b-b2598c18d931" name="Changes by 1215m" comment="Changes by 1215m">
+      <change beforePath="$PROJECT_DIR$/src/Instruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Instruction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Moves.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moves.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Status.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameMaster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameMaster.java" afterDir="false" />
+    </list>
     <list id="76011cad-48a0-4586-818e-74e958c6ef44" name="Changes by Beks" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameMaster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameMaster.java" afterDir="false" />
+    </list>
+    <list id="3130afd4-4af1-47d1-8220-45b210f2cd2b" name="Changes by Izzat" comment="">
+      <change beforePath="$PROJECT_DIR$/src/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Type.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gameMaster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameMaster.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,15 +61,46 @@
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/src/gameMaster.java">
       <ranges>
-        <range start1="3" end1="7" start2="3" end2="4" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
-        <range start1="19" end1="19" start2="16" end2="17" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
-        <range start1="20" end1="20" start2="18" end2="22" changelist="76011cad-48a0-4586-818e-74e958c6ef44" />
-        <range start1="23" end1="24" start2="25" end2="25" changelist="76011cad-48a0-4586-818e-74e958c6ef44" />
-        <range start1="67" end1="67" start2="68" end2="69" changelist="76011cad-48a0-4586-818e-74e958c6ef44" />
-        <range start1="69" end1="69" start2="71" end2="72" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
-        <range start1="176" end1="177" start2="179" end2="181" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
-        <range start1="179" end1="179" start2="183" end2="203" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
-        <range start1="181" end1="181" start2="205" end2="207" changelist="76011cad-48a0-4586-818e-74e958c6ef44" />
+        <range start1="2" end1="2" start2="2" end2="3" changelist="76011cad-48a0-4586-818e-74e958c6ef44" />
+        <range start1="5" end1="5" start2="6" end2="12" changelist="76011cad-48a0-4586-818e-74e958c6ef44" />
+        <range start1="19" end1="19" start2="26" end2="29" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="84" end1="84" start2="94" end2="95" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="199" end1="199" start2="210" end2="211" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="228" end1="228" start2="240" end2="241" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="231" end1="234" start2="244" end2="245" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="239" end1="240" start2="250" end2="251" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="241" end1="243" start2="252" end2="256" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="245" end1="246" start2="258" end2="259" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="251" end1="252" start2="264" end2="265" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="257" end1="258" start2="270" end2="272" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="260" end1="265" start2="274" end2="280" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="269" end1="269" start2="284" end2="285" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="273" end1="274" start2="289" end2="290" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="279" end1="280" start2="295" end2="296" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="282" end1="283" start2="298" end2="300" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="291" end1="291" start2="308" end2="309" changelist="c1870f03-3abd-4da9-801b-b2598c18d931" />
+        <range start1="321" end1="321" start2="339" end2="340" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="326" end1="328" start2="345" end2="348" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="330" end1="331" start2="350" end2="351" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="334" end1="335" start2="354" end2="356" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="337" end1="344" start2="358" end2="365" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="352" end1="354" start2="373" end2="375" changelist="3130afd4-4af1-47d1-8220-45b210f2cd2b" />
+        <range start1="356" end1="357" start2="377" end2="379" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="358" end1="359" start2="380" end2="381" changelist="3130afd4-4af1-47d1-8220-45b210f2cd2b" />
+        <range start1="361" end1="362" start2="383" end2="384" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="370" end1="371" start2="392" end2="393" changelist="3130afd4-4af1-47d1-8220-45b210f2cd2b" />
+        <range start1="373" end1="377" start2="395" end2="439" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="379" end1="380" start2="441" end2="471" changelist="76011cad-48a0-4586-818e-74e958c6ef44" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/UI.java">
+      <ranges>
+        <range start1="144" end1="145" start2="144" end2="145" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="146" end1="147" start2="146" end2="147" changelist="3130afd4-4af1-47d1-8220-45b210f2cd2b" />
+        <range start1="151" end1="152" start2="151" end2="152" changelist="3130afd4-4af1-47d1-8220-45b210f2cd2b" />
+        <range start1="263" end1="264" start2="263" end2="264" changelist="69bc99de-deba-4ffe-b3a4-4b3855d96ce8" />
+        <range start1="273" end1="274" start2="273" end2="278" changelist="3130afd4-4af1-47d1-8220-45b210f2cd2b" />
+        <range start1="278" end1="279" start2="282" end2="287" changelist="3130afd4-4af1-47d1-8220-45b210f2cd2b" />
       </ranges>
     </file>
   </component>
@@ -68,28 +116,49 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.gameTest.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.gameTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.side_by_side_cards_test.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\User\IdeaProjects\OOP-GaOle-Assignment\src" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="gameTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="src.gameTest" />
+      <module name="OOP-GaOle-Assignment" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="src.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.gameTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -109,7 +178,8 @@
       <updated>1722336742633</updated>
       <workItem from="1722336743685" duration="1155000" />
       <workItem from="1722338077511" duration="3842000" />
-      <workItem from="1722342533191" duration="12330000" />
+      <workItem from="1722342533191" duration="33024000" />
+      <workItem from="1722416620663" duration="6563000" />
     </task>
     <task id="LOCAL-00001" summary="changes">
       <option name="closed" value="true" />
@@ -127,7 +197,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722351568781</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="changes">
+      <option name="closed" value="true" />
+      <created>1722377035525</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1722377035526</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,18 +223,9 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Changes by Izzat" />
     <MESSAGE value="changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="changes" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/gameMaster.java</url>
-          <line>207</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Changes by 1215m" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes by 1215m" />
   </component>
 </project>

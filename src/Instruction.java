@@ -130,6 +130,9 @@ public class Instruction {
 	static public BiConsumer<Moves, Pokemon> ApplyUserStatus(Consumer<Status> ail) {
 		return (move, enemy) -> {move.user.getStatus().AddStatus(ail);};
 	}
+	static public BiConsumer<Moves, Pokemon> RemoveUserStatus(Class<Status> ail) {
+		return (move, enemy) -> {move.user.getStatus().RemoveStatus(ail);};
+	}
 	static public BiConsumer<Moves, Pokemon> ApplyUserStatusAction(Consumer<Status> ail, String act) {
 		return (move, enemy) -> {move.user.getStatus().AddStatus(ail);
 								 move.setMove_action(act);};
@@ -182,6 +185,13 @@ public class Instruction {
 				(move, enemy) -> {	
 					if (cond.apply(move, enemy)) success.accept(move, enemy);
 					else fail.accept(move, enemy);
+				}
+		);
+	}
+	static public BiConsumer<Moves, Pokemon> ExecuteIfNot(BiFunction<Moves, Pokemon, Boolean> cond, BiConsumer<Moves, Pokemon> success) {
+		return(
+				(move, enemy) -> {
+					if (!cond.apply(move, enemy)) success.accept(move, enemy);
 				}
 		);
 	}

@@ -379,6 +379,7 @@ public class Status {
 				}
 
 			}
+
 			UI.displayAction(user, "flew up in the air");
 		}
 		@Override
@@ -387,7 +388,7 @@ public class Status {
 		}
 		@Override
 		public void Endstep(){
-			gameMaster.addTurn(move);
+				gameMaster.addTurn(move);
 		}
 
 		public int getEndon(){

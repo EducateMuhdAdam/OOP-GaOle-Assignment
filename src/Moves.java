@@ -236,8 +236,9 @@ public class Moves{
 						Instruction.ApplyUserStatus(Status::SpdBuff));
 				break;}
 			case "FL2":
-				{Collections.addAll(inst, 
-						Instruction.ExecuteIf(Instruction.UserStatusCondition(Fly.class), Instruction.Attack(), Instruction.ApplyUserStatus(Status::Fly))); //T1 Fly Then Attacks T2
+				{Collections.addAll(inst,
+						Instruction.ExecuteIf(Instruction.UserStatusCondition(Fly.class), Instruction.Attack(), Instruction.ChangeMoveAction("self")),
+						Instruction.ExecuteIfNot(Instruction.UserStatusCondition(Fly.class), Instruction.ApplyUserStatusAction(Status::Fly, "target")) ); //T1 Fly Then Attacks T2
 				break;}
 			case "FL3":
 				{Collections.addAll(inst, 

@@ -1,8 +1,15 @@
 package src;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+
 
 
 public class gameMaster {
@@ -17,6 +24,9 @@ public class gameMaster {
 
 	private static LocalDateTime start;
 	private static LocalDateTime end;
+
+	private static final String[] ballList = {"pokeball", "greatball", "ultraball", "masterball"};
+	private static final double[] ballCatchRate = {0.2, 0.4, 0.7, 0.9};
 
 	private enum STATE {
 		MENU,
@@ -82,6 +92,7 @@ public class gameMaster {
 							state = STATE.GAME;
 							start = LocalDateTime.now();
 							battleTime(choosePokemon(generatePokemon(3, Team.Ally), player), generatePokemon(2, Team.Enemy));
+							catchTime(catchChance);
 							LocalDateTime end = LocalDateTime.now();
 							System.out.println(gameDuration(start, end));
 							UI.displayGameEnd();
@@ -197,6 +208,7 @@ public class gameMaster {
 	}
 
 	public static void battleTime(ArrayList<Pokemon> allylist, ArrayList<Pokemon> enemylist) {
+
 		ally = allylist;
 		enemy = enemylist;
 		queue = new ArrayList<Moves>();
@@ -226,61 +238,66 @@ public class gameMaster {
 			EndstepTrigger();
 			UpdateAlive();
 		}
+
 		//readHash();
 		if (ally.isEmpty()) UI.displayDefeat();
 
-
-		if (enemy.isEmpty())
-			UI.displayVictory();
+		if (enemy.isEmpty()) UI.displayVictory();
 
 
 	}
 
 
-	public static void DoTurn(Moves move){
+	public static void DoTurn(Moves move) {
 		System.out.println(move.getMove_action());
-		if (move.getMove_action().equalsIgnoreCase("self")) {UI.displayAttack(move);move.UseOn();}
-		else {
+		if (move.getMove_action().equalsIgnoreCase("self")) {
+			UI.displayAttack(move);
+			move.UseOn();
+		} else {
 			if (move.user.getTeam() == Team.Ally) {
 				UI.displayAttack(move);
-				for (Pokemon poke: enemy){
+				for (Pokemon poke : enemy) {
 					move.UseOn(poke);
 				}
 			}
 			if (move.user.getTeam() == Team.Enemy) {
 				UI.displayAttack(move);
-				for (Pokemon poke: ally){
+				for (Pokemon poke : ally) {
 					move.UseOn(poke);
 				}
 			}
 		}
 	}
-	public static int getTurnCounter(){
+
+	public static int getTurnCounter() {
 		return turnCounter;
 	}
-	public static void readHash(){
-		for (int i = 1; i <= mainlog.size();i++){
-			System.out.println("Turn " + i);
-			for (Moves m : mainlog.get(i)){
-				System.out.println(m.getMove_name());
+
+	public static void readHash() {
+		for (int i = 1; i <= mainlog.size(); i++) {
+			System.out.println(UI.colorFont(String.format("Turn " + i), UI.CYAN));
+			for (Moves m : mainlog.get(i)) {
+				System.out.println(UI.colorFont(m.getMove_name(), UI.CYAN));
 			}
 
 		}
 	}
+
 	public static void addToHash(int Key, Moves move) {
 		ArrayList<Moves> moveList = mainlog.get(Key);
 
 		// if list does not exist create it
-		if(moveList == null) {
+		if (moveList == null) {
 			moveList = new ArrayList<Moves>();
 			moveList.add(move);
 			mainlog.put(Key, moveList);
 		} else {
 			// add if item is not already in list
-			if(!moveList.contains(move)) moveList.add(move);
+			if (!moveList.contains(move)) moveList.add(move);
 		}
 	}
-	public static HashMap<Integer, ArrayList<Moves>> getMainlog(){
+
+	public static HashMap<Integer, ArrayList<Moves>> getMainlog() {
 		return mainlog;
 	}
 
@@ -289,6 +306,7 @@ public class gameMaster {
 		if (!enemy.isEmpty()) {
 			for (Pokemon poke : enemy) {
 				if (poke.getCurrent_hp() <= 0) {
+
 					catchChance.add(poke);
 					toRemove.add(poke);
 				}
@@ -319,29 +337,32 @@ public class gameMaster {
 			}
 		}
 	}
+
 	public static boolean CheckAlive(Pokemon checkPoke) {
 		if (ally.contains(checkPoke)) return true;
 		if (enemy.contains(checkPoke)) return true;
 		return false;
 	}
-	public static void EndstepTrigger(){
-		for (Pokemon poke: ally){
+
+	public static void EndstepTrigger() {
+		for (Pokemon poke : ally) {
 			poke.getStatus().CheckEndstep();
 		}
-		for (Pokemon poke: enemy){
+		for (Pokemon poke : enemy) {
 			poke.getStatus().CheckEndstep();
 		}
 	}
-	public static void initQueue(ArrayList<Pokemon> ally, ArrayList<Pokemon> enemy){
+
+	public static void initQueue(ArrayList<Pokemon> ally, ArrayList<Pokemon> enemy) {
 
 		ArrayList<Pokemon> prequeue = new ArrayList<Pokemon>();
-        for (Moves moves : queue) {
-            prequeue.add(moves.user);
-        }
-        for (Pokemon pokemon : ally) {
-            if (!prequeue.contains(pokemon))
-                queue.add(UI.displaySelectMove(pokemon));
-        }
+		for (Moves moves : queue) {
+			prequeue.add(moves.user);
+		}
+		for (Pokemon pokemon : ally) {
+			if (!prequeue.contains(pokemon))
+				queue.add(UI.displaySelectMove(pokemon));
+		}
 		for (int i = 0; i < enemy.size(); i++) {
 			if (!prequeue.contains(enemy.get(i)))
 				queue.add(UI.displaySelectMove(enemy.get(i), (int) (Math.random() * 2 + 1)));
@@ -350,16 +371,17 @@ public class gameMaster {
 		queue.sort((o1, o2) -> o2.user.getSpeed() - o1.user.getSpeed());
 		queue.sort((o1, o2) -> o2.getPriority() - o1.getPriority());
 
-		for (Moves m: queue) {
-			System.out.println(m.user.getPokemon_id()+ " " + m.getMove_name());
+		for (Moves m : queue) {
+			System.out.println(UI.colorFont(String.format((m.user.getPokemon_id() + " " + m.getMove_name())), UI.YELLOW));
 		}
 	}
-	public static void skipTurn (Pokemon poke) {
+
+	public static void skipTurn(Pokemon poke) {
 		skipped.add(poke);
-		UI.displayMessage((poke.getTeam()+ " " + poke.getName() + " skipped its turn!"));
+		UI.displayMessage(UI.colorFont(String.format((poke.getTeam() + " " + poke.getName() + " skipped its turn!")), UI.YELLOW));
 	}
 
-	public static void addTurn (Moves move) {
+	public static void addTurn(Moves move) {
 		queue.add(move);
 	}
 
@@ -368,13 +390,81 @@ public class gameMaster {
 		long hours = duration.toHours();
 		long minutes = duration.toMinutes() % 60;
 		long seconds = duration.getSeconds() % 60;
-		return String.format("Game duration: %d hours, %d minutes, %d seconds", hours, minutes, seconds);
+		return (UI.colorFont(String.format("Game duration: %d hours, %d minutes, %d seconds", hours, minutes, seconds), UI.CYAN));
 	}
 
-	//public static void catchTime(ArrayList<Pokemon> enemylist){
-		//UI.displayPokemonDetails();
-		//UI.displayCatchOptions();
-		//UI.displayCatchResult();
+	public static void catchTime(ArrayList<Pokemon> catchChance) {
+
+		Pokemon chosenPoke = new Pokemon (1,Team.Ally);
+		if (catchChance.size() > 0) {
+			UI.displayCatchOptions(catchChance);
+			while (true) {
+				try {
+
+					int catchchoice = input.nextInt();
+					switch (catchchoice) {
+						case 1:
+							chosenPoke = catchChance.get(0);
+							break;
+						case 2:
+							chosenPoke = catchChance.get(1);
+							break;
+						default:
+							System.out.println(UI.colorFont("Please select a valid option (1 to 2).", UI.YELLOW));
+							break;
+					}
+					int randindex = (int) (Math.random() * 4);
+					String playerBall = ballList[randindex];
+					System.out.println(UI.colorFont("You got a " + playerBall, UI.YELLOW));
+					double catchRate = ballCatchRate[randindex];
+					if (catchRate > Math.random()) {
+						System.out.println(UI.colorFont("You caught " + chosenPoke.getName(), UI.GREEN));
+						ally.add(chosenPoke);
+					} else {
+						System.out.println(UI.colorFont("You failed to catch " + chosenPoke.getName(), UI.RED));
+					}
+
+				} catch (InputMismatchException e) {
+					System.out.println(UI.colorFont("Please enter a valid number", UI.RED));
+					input.nextLine();
+				}
+			}
+			//UI.displayCatchResult();
+			// UI.displayPokemonDetails(poke);
+		}
+		//public void view_score(Player player){
+
+	}
+}
+
 
 	//}
-}
+
+	//public static void write_changes_file( String[] scores) throws IOException {
+		//String fileName = System.getProperty("user.dir") + "\\src\\score.csv";
+		//FileWriter writer = new FileWriter(fileName);
+	    //
+		//for(int i = 0; i < scores.length; i++){
+		//		writer.append("%s,%s\n"scores[i], scores[1])
+		// }
+		//writer.close();
+
+	//}
+	//public static String[] read_file() throws FileNotFoundException{
+	// 		String fileName = System.getProperty("user.dir") + "\\src\\score.csv";
+	//		FileReader reader = new FileReader(fileName);
+	//		BufferedReader bfrreader = new BufferedReader(reader);
+	//		String line;
+	//		while((line = bfrreader.readLine()) != null){
+	//			String[] data = line.split(",");
+	//		}
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//		return data;
+	// }
+

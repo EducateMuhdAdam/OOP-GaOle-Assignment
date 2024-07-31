@@ -142,14 +142,14 @@ public class UI {
         System.out.println();
     }
 
-    public static void displayCatchOptions(List<Pokemon> catchOptions) {
+    public static void displayCatchOptions(ArrayList<Pokemon> catchOptions) {
         displaySeparator();
-        System.out.println("Choose a Pokémon to catch:");
+        System.out.println(UI.colorFont("Choose a Pokémon to catch:", UI.CYAN));
         for (int i = 0; i < catchOptions.size(); i++) {
             System.out.printf("%d. %s%n", i + 1, catchOptions.get(i).getName());
         }
         displaySeparator();
-        System.out.print("Enter the number of the Pokémon you want to catch: ");
+        System.out.print(UI.colorFont("Enter the number of the Pokémon you want to catch: ", UI.CYAN));
         System.out.println();
     }
 
@@ -261,7 +261,7 @@ public class UI {
     }
 
     public static void displayAction(Pokemon poke, String action) {
-        displayMessage(poke.getTeam() + " " + poke.getName() + " " + action + "!");
+        displayMessage(UI.colorFont(poke.getTeam() + " " + poke.getName() + " " + action + "!", UI.YELLOW));
         System.out.println();
     }
 
@@ -271,12 +271,20 @@ public class UI {
         displaySeparator();
     }
     public static void displayVictory() {
-        displayMessage(UI.colorFont("You won the battle!", UI.GREEN));
+        displaySeparator();
+        System.out.println();
+        displayMessage(UI.colorFont("               You won the battle!           ", UI.CYAN));
+        System.out.println();
+        displaySeparator();
         System.out.println();
     }
 
     public static void displayDefeat() {
-        displayMessage(UI.colorFont("You lost the battle. Better luck next time.", UI.RED));
+        displaySeparator();
+        System.out.println();
+        displayMessage(UI.colorFont("     You lost the battle. Better luck next time.  ", UI.RED));
+        System.out.println();
+        displaySeparator();
         System.out.println();
     }
 

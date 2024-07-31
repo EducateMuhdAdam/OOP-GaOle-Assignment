@@ -46,8 +46,15 @@ public enum Type {
 		for (Type t: enemy.getType()) {
 			mult *= line[t.ordinal()];
 		}
-		
-		System.out.println(mult);
+		if (mult == 0){
+			System.out.println(UI.colorFont("No effect!!", UI.YELLOW));
+		} else if (mult > 0 && mult < 1) {
+			System.out.println(UI.colorFont("It's not very effective...", UI.YELLOW));
+		} else if (mult >= 2) {
+			System.out.println(UI.colorFont("It's super effective!!", UI.GREEN));
+		}
+		System.out.println(UI.colorFont(String.format("Multiplier: " + mult), UI.CYAN));
+		System.out.println();
 		return mult;
 	}
 }
