@@ -6,6 +6,7 @@ import java.io.*;
 import java.lang.Math;
 
  public class Moves{
+	 final double DAMAGESCALE = 2;
 	Pokemon user;
 	private int power, accuracy, priority, stage_accuracy;
 	private String  move_ID, move_name, move_action;
@@ -237,8 +238,8 @@ import java.lang.Math;
 				break;}
 			case "FL2":
 				{Collections.addAll(inst,
-						Instruction.ExecuteIf(Instruction.UserStatusCondition(Fly.class), Instruction.Attack(), Instruction.ChangeMoveAction("self")),
-						Instruction.ExecuteIfNot(Instruction.UserStatusCondition(Fly.class), Instruction.ApplyUserStatusAction(Status::Fly, "target")) ); //T1 Fly Then Attacks T2
+						Instruction.ExecuteIf(Instruction.UserStatusCondition(Fly.class), Instruction.ChangeMoveAction("self")),
+						Instruction.ExecuteIf(Instruction.UserStatusCondition(Fly.class), Instruction.Attack(), Instruction.ApplyUserStatusAction(Status::Fly, "target"))); //T1 Fly Then Attacks T2
 				break;}
 			case "FL3":
 				{Collections.addAll(inst, 
@@ -428,7 +429,7 @@ import java.lang.Math;
 	}
 
 	public int CalculateDmg(Moves move,Pokemon enemy) {
-		return (int)(power * user.getCurrent_attack()/enemy.getCurrent_defense() * user.getStatus().getdmgMult() * Type.CheckTypeMult(move, enemy));
+		return (int)(power * user.getCurrent_attack() * user.getStatus().getdmgMult() * Type.CheckTypeMult(move, enemy) /(enemy.getCurrent_defense() * DAMAGESCALE));
 	}
 	
 	public static int CalculateDmg(int power, Pokemon user, Pokemon enemy) {
