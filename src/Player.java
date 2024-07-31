@@ -102,7 +102,7 @@ import java.util.*;
 			 i++;
 		 }
 		 System.out.println();
-		 WriteLeaderboard(leaderboard);
+		 WriteLeaderboard(newlead);
 	 }
 	 public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm)
 	 {
