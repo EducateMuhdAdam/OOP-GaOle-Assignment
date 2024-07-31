@@ -49,10 +49,11 @@ public class Player {
 	}
 	//
 	public void CalculateScore(Pokemon pokemon){
-		this.score += 1 * pokemon.getCurrent_attack() * pokemon.getGrade()* pokemon.getCurrent_speed();
+		 this.score += 1 * pokemon.getCurrent_attack() * pokemon.getGrade()* pokemon.getCurrent_speed();
 
 		setScore(this.score);
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -60,9 +61,6 @@ public class Player {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	
-	public void setPokemon_list(int[] pokemon_list) {
-		this.pokemon_list = pokemon_list;
-	}
+
 
 }
